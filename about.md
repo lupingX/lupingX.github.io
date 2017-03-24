@@ -5,7 +5,7 @@ layout: default_post
 ---
 
 ## LUPING XIANG #
-<img width="480" height="240" id="_x0000_i1025" src="cute.jpg" alt="luping" align="middle">
+![](cute.jpg)
 received the B.Eng. (Hons.) degree from Xiamen University, China, in 2015. 
 He is currently pursuing the Ph.D. degree with the Southampton Wireless Group, University of
 Southampton. His research interests include fully parallel turbo coding algorithm.
