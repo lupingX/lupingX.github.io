@@ -4,14 +4,14 @@ permalink: /about/
 layout: default_post
 ---
 
-## ..myself #
-
-Hello there. How I’ve waited for you to come, Ive been here all alone. 
-Now that you've arrived. Please stay a while. And I promise I won't keep 
-you long. <style>a{color: #FFF;}a:hover{color: #f0f0f0;}.footer a{color: #800000;}</style>
-[_I'll keep you forever..._](https://youtu.be/vh1TsSaGlXQ?t=37s)
+## LUPING XIANG #
+<img width="64" height="64" id="_x0000_i1025" src="materials/cute.jpg" alt="luping" align="middle">
+received the B.Eng. (Hons.) degree from Xiamen University, China, in 2015. 
+He is currently pursuing the Ph.D. degree with the Southampton Wireless Group, University of
+Southampton. His research interests include fully parallel turbo coding algorithm.
+--<a href="materials/luping-CV.pdf">Here is my CV</a>.
 
 ## ...this blog #
 
-I write this blog because I like to chant, rant and sometimes say things that I probably shan't.
+I write this blog because I want to share what I have learned and keep going.
 
