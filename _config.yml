@@ -4,8 +4,8 @@
 # # # # # # # # # #
 
 # Basic
-name: "Luping personal Homepage"
-description: "dirty and malnourished jekyll theme"
+name: "Luping@soton"
+description: "phD student"
 
 # URL
 url: ""
@@ -17,14 +17,11 @@ markdown: kramdown
 
 # Navigation
 nav:
- - name: "about"
+ - name: "personal detial"
    href: "/about"
 
- - name: "reference"
-   href: "/ref"
-
  - name: "contact"
-   href: "lx1g15@soton.ac.uk"
+   href: "lx1g15@soton.ac.uk.gov?You%20are%20ooold..."
 
 # Sass
 sass:
