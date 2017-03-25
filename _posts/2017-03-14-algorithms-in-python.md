@@ -1,11 +1,27 @@
 ---
-title: Algorithms-in-Python
+title:        title: Algorithms-in-Python?
 ---
 
-<p class="lead"> <a href="http://jekyllrb.com">Jekyll</a> is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes.</p>
+<style>
+  img {
+  border: solid grey 1px;
+}
 
-From [the project's readme](https://github.com/jekyll/jekyll/blob/master/README.markdown):
+  h5 {
+  text-align: center;
+  color: #000;
+  text-decoration: underline;
+  margin-top: -7px;
+}
+</style>
+<p class="lead"> From this book, I want to practice algorithm and Python. I will record all the necessary tips about python and keep the code</p>
+[Algorithm in python](https://lupingX.github.io/materials/algorithms-in-python.pdf).
 
-> Jekyll is a simple, blog aware, static site generator. It takes a template directory [...] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.
+>This book is very useful and I strongly recommand this to practice your code.
 
-Please visit the detail [visiting the project on GitHub](https://lupingX.github.io/materials/algorithms-in-python.pdf).
+## Chapter one-Python Primer
+>[1] bool int float tuple str are immutable which means they can't be changed at the id place.
+[2] The difference of tuple and list(mutable vs immutable)
+[3] Raise error=> try: except: finally: syntax
+[4] How do iterator and generators(**yield**) work
+this chapter is basically as a refence or handbook for me. If anything confused me, then turn back and have a look at this chapter
