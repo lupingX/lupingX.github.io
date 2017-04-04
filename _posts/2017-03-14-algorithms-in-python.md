@@ -23,23 +23,25 @@ isinstance(obj,cls):determine if obj is an instance of the class(or subclass)
 <br>this chapter is basically as a refence or handbook for me. If anything confused me, then turn back and have a look at this chapter.
 
 ## Chapter two: **Object-oriented Programming**
->[1]**unit test**: if __name__=='__main__':
-<br>[2]Operator overloading: a+b is converted to a method call on object a of the form, a.__add__(b) Alternatively b.__radd(a)
+>[1]**unit test**: if \_\_name__=='\_\_main\_\_':
+<br>[2]Operator overloading: a+b is converted to a method call on object a of the form, a.\_\_add\_\_(b) Alternatively b.\_\_radd(a)
 can let the new class use the existing class.
 <br>[3]iter(a) can be geneated automatically by def len and getitem
-<br>[4]__init__: constructor
-<br>[5]**Inheritance**: how?-> class xxx(xparents): use? super().__init__(xxxxx)
+<br>[4]\_\_init\_\_: constructor
+<br>[5]**Inheritance**: how?-> class xxx(xparents): use? super().\_\_init\_\_(xxxxx)
 <br>[6]shallow copy and deep copy: if a=b(type:list):means create a new allias, no new list created; a=list(b): shallow copy=>new ref list created
 but not the content. By using the copy module, we can do a deep copy, then a totally new content created: a= copy.deepcopy(b) 
 
-[practice code]:(https://lupingX.github.io/materials/algorithms-in-python/chat2_test.py). This chapter is
-mainly about OOP, and how to do it in python. Understand it and do practice is the core.
+[practice code]:(https://lupingX.github.io/materials/algorithms-in-python/chat2_test.py). 
+
+This chapter is mainly about OOP, and how to do it in python. Understand it and do practice is the core.
 
 ## Chapter three: **Algorithm Analysis**
 >ignoring this chapter-mainly about how to compare two algorithm. Big-O notation(see Introduction to Algorithm blog)
 
-## Chapter three: **Recursion**
+## Chapter four: **Recursion**
 >learned and this book is about example:
+
 [practice code]:(https://lupingX.github.io/materials/algorithms-in-python/char4_disk_usage.py).
 
-## Chapter three: **Array-Based Sequences**
+## Chapter five: **Array-Based Sequences**
