@@ -2,10 +2,11 @@
 title: Introduction-to-Algorithm?
 ---
 
-<p class="lead"> <a href="http://jekyllrb.com">Jekyll</a> is a static site generator, an open-source tool for creating simple yet powerful websites of all shapes and sizes.</p>
+<p class="lead"> <a href="https://lupingx.github.io/algorithm-MIT/">Algorithm</a> is so important that I use this link to record what I have learned from MIT open course and
+the implementation code for specific algorithm.</p>
 
-From [the project's readme](https://github.com/jekyll/jekyll/blob/master/README.markdown):
+If you have any question or issue, contact me.
 
-> Jekyll is a simple, blog aware, static site generator. It takes a template directory [...] and spits out a complete, static website suitable for serving with Apache or your favorite web server. This is also the engine behind GitHub Pages, which you can use to host your project’s page or blog right here from GitHub.
+> This is only a immature practice, I just want to this this method to push me recording my study.
 
 Please visit the detail [visiting the project on GitHub](https://lupingx.github.io/algorithm-MIT/).
