@@ -31,7 +31,7 @@ can let the new class use the existing class.
 <br>[5]**Inheritance**: how?-> class xxx(xparents): use? super().\_\_init\_\_(xxxxx)
 <br>[6]shallow copy and deep copy: if a=b(type:list):means create a new allias, no new list created; a=list(b): shallow copy=>new ref list created
 but not the content. By using the copy module, we can do a deep copy, then a totally new content created: a= copy.deepcopy(b) 
-[practice code](https://lupingX.github.io/materials/algorithms-in-python/chat2_test.py). 
+[practice code](https://lupingX.github.io/materials/algorithm-in-python/chat2_test.py). 
 
 This chapter is mainly about OOP, and how to do it in python. Understand it and do practice is the core.
 
@@ -40,6 +40,6 @@ This chapter is mainly about OOP, and how to do it in python. Understand it and 
 
 ## Chapter four: **Recursion**
 >learned and this book is about example:
-[practice code](https://lupingX.github.io/materials/algorithms-in-python/char4_disk_usage.py).
+[practice code](https://lupingX.github.io/materials/algorithm-in-python/char4_disk_usage.py).
 
 ## Chapter five: **Array-Based Sequences**
