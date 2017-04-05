@@ -31,7 +31,7 @@ can let the new class use the existing class.
 <br>[5]**Inheritance**: how?-> class xxx(xparents): use? super().\_\_init\_\_(xxxxx)
 <br>[6]shallow copy and deep copy: if a=b(type:list):means create a new allias, no new list created; a=list(b): shallow copy=>new ref list created
 but not the content. By using the copy module, we can do a deep copy, then a totally new content created: a= copy.deepcopy(b) 
-[practice code](https://lupingX.github.io/materials/algorithm-in-python/chat2_test.py). 
+<br>[practice code](https://lupingX.github.io/materials/algorithm-in-python/chat2_test.py). 
 
 This chapter is mainly about OOP, and how to do it in python. Understand it and do practice is the core.
 
@@ -40,15 +40,15 @@ This chapter is mainly about OOP, and how to do it in python. Understand it and 
 
 ## Chapter four: **Recursion**
 >learned and this book is about example:
-[practice code](https://lupingX.github.io/materials/algorithm-in-python/char4_disk_usage.py).
+<br>[practice code](https://lupingX.github.io/materials/algorithm-in-python/char4_disk_usage.py).
 
 ## Chapter five: **Array-Based Sequences**
->[1]**list**,**tuple**,**str**->sequence and each uses a low-level concept known as an *array* to represent the sequcen.
-[2]*array*: **Referential Array**->list:save the ref not the actual contents. And because Int of float or string..are immutable, so a[3]=3 only change the ref, not the exact num.
+><br>[1]**list**,**tuple**,**str**->sequence and each uses a low-level concept known as an *array* to represent the sequcen.
+<br>[2]*array*: **Referential Array**->list:save the ref not the actual contents. And because Int of float or string..are immutable, so a[3]=3 only change the ref, not the exact num.
 And tuple also save the ref, but can't change the ref. u can do append at tuple class..
 **Compact array**->str: save the exact number by using Unicode international character set.->which is really great for saving a lot of RAM.
-[3]64-bit computer means: every memory address using 64bits(8Byte), and Unicode set use 2 byte for saving.
-[4]**Dynamic Array**:->append: create a greater capacity than the actual used. If then you have used all the capacity then create a new and larger list. copy the original list
+<br>[3]64-bit computer means: every memory address using 64bits(8Byte), and Unicode set use 2 byte for saving.
+<br>[4]**Dynamic Array**:->append: create a greater capacity than the actual used. If then you have used all the capacity then create a new and larger list. copy the original list
 to the new list then append sth and the old list is no longer needed.
-[5]**insertation sort**: insert into the kth place then shift everything to the right.
-[practice code](https://lupingX.github.io/materials/algorithm-in-python/char5_array.py).
+<br>[5]**insertation sort**: insert into the kth place then shift everything to the right.
+<br>[practice code](https://lupingX.github.io/materials/algorithm-in-python/char5_array.py).
