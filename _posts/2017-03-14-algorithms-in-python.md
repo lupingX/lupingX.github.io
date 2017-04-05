@@ -52,3 +52,6 @@ And tuple also save the ref, but can't change the ref. u can do append at tuple 
 to the new list then append sth and the old list is no longer needed.
 <br>[5]**insertation sort**: insert into the kth place then shift everything to the right.
 <br>[practice code](https://lupingX.github.io/materials/algorithm-in-python/char5_array.py).
+
+This chapter mainly address **list tuple str**, and tell the lower-level array and need to practice about
+how to complement it.
