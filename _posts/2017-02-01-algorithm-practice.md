@@ -2,11 +2,11 @@
 title: Algorithm practice?
 ---
 
-<p class="lead"> <a href="http://jekyllrb.com">Some program for interest</a> Here is a collection of my personal code</p>
+<p class="lead">Here is a collection of my personal code when practice algorithm at Leetcode</p>
 
 From [the project's readme](https://github.com/jekyll/jekyll/blob/master/README.markdown):
 
-> Have fun and keep hungry
+> Have fun and keep going
 
 **Two Sum**
 >Given an array of integers, return indices of the two numbers such that they add up to a specific target.
@@ -97,23 +97,26 @@ class Solution(object):
         return result
 ```
 
-**3Sum** Closest**
+**3SumClosest**
 >Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+
 ```python
     For example, given array S = {-1 2 1 -4}, and target = 1.
-
     The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 ```
+
 ```python
 1. use while loop to do the first loop.
-2. follow the above algorithm and use check function.
+2. follow the above algorithm and just modify some small part. And the complexity should be O(N^2)
+3. And at this particular question, we can't optimize it using binary search cause we need to travel through to get the closest.
 ```
+
 code:
 ```python
     def threeSumClosest(self, nums, target):
 
         nums = sorted(nums)
-        result = nums[0] + nums[1] + nums[2]
+        result = nums[0] + nums[1] + nums[2]#iniliazation
         small=0
         while small<len(nums)-2:
 
@@ -121,7 +124,7 @@ code:
                     large = len(nums) - 1
                     while mid < large:
                         temp = nums[small] + nums[mid] + nums[large]
-                        if abs(target-temp) < abs(target-result):
+                        if abs(target-temp) <= abs(target-result):
                             result=temp
                             if target>temp:
                                 mid += 1
@@ -137,4 +140,50 @@ code:
                     small+=1
         return result
 
+```
+
+**Add Two Numbers**
+>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+```python
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+```
+algorithm thought:
+```python
+1. we need a new link to store the sum and also a number to store the add-on.
+2. need to consider when the 2 links are not same length.
+```
+code:
+```python
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        p1 = l1
+        p2 = l2
+        addon = 0
+        l3 = ListNode((p1.val + p2.val+addon) % 10)
+        p=l3
+        addon=(p1.val + p2.val)//10
+        while p1.next or p2.next:
+            if p1.next:
+                val1=p1.next.val
+                p1=p1.next
+            else:
+                val1=0
+            if p2.next:
+                val2=p2.next.val
+                p2=p2.next
+            else:
+                val2=0
+            p3 = ListNode((val1+val2+addon) % 10)
+            addon = (val1+val2+addon) // 10
+            p.next=p3
+            p=p.next
+        if addon:
+            p.next=ListNode(addon)
+        return l3
 ```
