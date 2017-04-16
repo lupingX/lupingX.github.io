@@ -149,11 +149,15 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 0 -> 8
 ```
-algorithm thought:
-```python
-1. we need a new link to store the sum and also a number to store the add-on.
-2. need to consider when the 2 links are not same length.
-```
+pseudocode::
+* iniliaze p1 and p2 to l1 and l2
+* inilize addon to be zero
+* loop until p1 and p2 to the end:
+    * d1=p1.val if p1 else 0, same with p2
+    * keep the sum of p1 p2 and addon
+    * create a new node to keep (p1.val+p2.val+addon)%10
+    * and reflush addon = (p1.val+p2.val+addon)//10
+* create a brand new node if addon not zero
 code:
 ```python
     def addTwoNumbers(self, l1, l2):
@@ -187,3 +191,18 @@ code:
             p.next=ListNode(addon)
         return l3
 ```
+
+**Longest Substring Without Repeating Characters**
+>Given a string, find the length of the longest substring without repeating characters.
+```python
+Given "abcabcbb", the answer is "abc", which the length is 3.
+Given "bbbbb", the answer is "b", with the length of 1.
+Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+```
+
+pseudocode::
+* initilize result=0 temp=1 and input string s
+* loop s from currentIndex=1 until end:
+    * temp+=1 if s[currentIndex] in s(currentIndex-temp,currentIndex-1) else temp=0
+    * result =temp if reuslt>temp
+    
