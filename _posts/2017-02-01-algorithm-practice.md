@@ -201,8 +201,43 @@ Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer 
 ```
 
 pseudocode::
-* initilize result=0 temp=1 and input string s
-* loop s from currentIndex=1 until end:
-    * temp+=1 if s[currentIndex] in s(currentIndex-temp,currentIndex-1) else temp=0
+* initilize result=1 temp=1 and input string s
+* loop s from currentIndex=0 until end:
+    * temp+=1 if s[currentIndex] not in s(currentIndex-temp,currentIndex) else temp=0
     * result =temp if reuslt>temp
-    
+submission error:
+<br>1. didn't consider the condition input='' so make change to reuslt and temp
+<br>2. and this idea is not right when reset, so i need to change it at the else part: (1) find the duplicate part at index. (2) change the temp to temp=currentIndex-index
+>finish and complexity is O(N) acceptable
+
+code:
+```python
+        result=0
+        temp=0
+        for currentIndex in range(len(s)):
+            if s[currentIndex] not in s[currentIndex-temp:currentIndex]:
+                temp+=1
+            else:
+                index=s.find(s[currentIndex],currentIndex-temp,currentIndex)
+                temp=currentIndex-index
+            if temp>result:
+                result=temp
+        return result
+```
+
+
+**Median of Two Sorted Arrays**
+>There are two sorted arrays nums1 and nums2 of size m and n respectively.
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+```python
+nums1 = [1, 3]
+nums2 = [2]
+The median is 2.0
+nums1 = [1, 2]
+nums2 = [3, 4]
+The median is (2 + 3)/2 = 2.5
+```
+
+pseudocode::
+* the idea should be combine 2 sorted array to one sorted array
+* MIT course - - forget...
