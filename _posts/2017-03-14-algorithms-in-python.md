@@ -17,7 +17,15 @@ title: Algorithms-in-Python?
 its  associated value from dictionary.
 <br>[7]if beta is list: (beta+=[4,5]:extends the original list with 2 more elements; beta=beta+[6,7]: reassign beta to a new list [xxx,6,7]  )
 <br>Some **build-in** function:
-isinstance(obj,cls):determine if obj is an instance of the class(or subclass)
+isinstance(obj,cls):determine <!DOCTYPE html>
+<html>
+<head>
+    <title>Algorithms-in-Python?</title>
+</head>
+<body>
+
+</body>
+</html>if obj is an instance of the class(or subclass)
 <br>[8]**File**: fp=open('xxx.dat','w')#'w','r','a'
 
 <br>this chapter is basically as a refence or handbook for me. If anything confused me, then turn back and have a look at this chapter.
@@ -55,3 +63,12 @@ to the new list then append sth and the old list is no longer needed.
 
 This chapter mainly address **list tuple str**, and tell the lower-level array and need to practice about
 how to complement it.
+
+## Chapter Six: **Stacks Queues, and Deque**
+><br>[1]**Stack**: FILO we can just use **list** to sampily implement Stack. Here we have 2 application about stack: (1)reversing the data (2)matching HTML TAGs
+<br>[2]**Queue**: FIFO-> and how to implement Queue in python? we can't just do it by list, cause pop function will need O(N) complexity. Then use a cyclic shift array to implement queue, then enque and deque are both O(1)
+<br>[3]**Deque**: which is a extend of queue ADT-u can enque and deque and  head and tail...which is not hard.
+<br>[practice code](https://lupingX.github.io/materials/algorithm-in-python/queueADT.py) [None]\*2 is different with []\*2 and be careful
+
+In this chpater, mainly address 2 type of data structure-Stack and queue which are can be implemented by list. The idea about how to make the complexity decrease from O(N) to O(1) is the key in Queue.
+
