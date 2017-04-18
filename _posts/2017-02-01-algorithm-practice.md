@@ -5,9 +5,10 @@ title: Algorithm practice?
 <p class="lead">Here is a collection of my personal code when practice algorithm at Leetcode</p>
 
 From [the project's readme](https://github.com/jekyll/jekyll/blob/master/README.markdown):
-
+[Two Sum](#home)
 > Have fun and keep going
 
+<a name="home"></a>
 **Two Sum**
 >Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -238,6 +239,11 @@ nums2 = [3, 4]
 The median is (2 + 3)/2 = 2.5
 ```
 
-pseudocode::
+thought::
 * the idea should be combine 2 sorted array to one sorted array
-* MIT course - - forget...
+* MIT course- merge sort, the complexity should be NlogN, whihc is more than requirement
+* The difference is that we don't need a sorted array- but the k-th number.
+
+pseudocode:: input(nums1, nums2) both list
+* 
+
