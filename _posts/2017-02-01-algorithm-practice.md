@@ -5,10 +5,15 @@ title: Algorithm practice?
 <p class="lead">Here is a collection of my personal code when practice algorithm at Leetcode</p>
 
 From [the project's readme](https://github.com/jekyll/jekyll/blob/master/README.markdown):
-[Two Sum](#home)
+
+<br>[**Two Sum[E]**](#Two Sum)
+<br>[**3Sum[M]**](#3Sum)
+<br>[**3SumClosest[M]**](#3SumClosest)
+<br>[**Longest Substring Without Repeating Characters[M]**](#Longest Substring Without Repeating Characters)
+<br>[**Median of Two Sorted Arrays[H]**](#Median of Two Sorted Arrays)
 > Have fun and keep going
 
-<a name="home"></a>
+<a name="Two Sum"></a>
 **Two Sum**
 >Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -46,6 +51,7 @@ Below is another solution using O(N) complexity:
                 dict[target - nums[i]] = i
 ```
 
+<a name="3Sum"></a>
 **3Sum**
 >Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all *unique triplets* in the array which gives the sum of zero.
 Note: The solution set must not contain duplicate triplets.
@@ -98,6 +104,7 @@ class Solution(object):
         return result
 ```
 
+<a name="3SumClosest"></a>
 **3SumClosest**
 >Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
 
@@ -143,6 +150,7 @@ code:
 
 ```
 
+<a name="Add Two Numbers"></a>
 **Add Two Numbers**
 >You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
 ```python
@@ -193,6 +201,7 @@ code:
         return l3
 ```
 
+<a name="Longest Substring Without Repeating Characters"></a>
 **Longest Substring Without Repeating Characters**
 >Given a string, find the length of the longest substring without repeating characters.
 ```python
@@ -227,6 +236,7 @@ code:
 ```
 
 
+<a name="Median of Two Sorted Arrays"></a>
 **Median of Two Sorted Arrays**
 >There are two sorted arrays nums1 and nums2 of size m and n respectively.
 Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
