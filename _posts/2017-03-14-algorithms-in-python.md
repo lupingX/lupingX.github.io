@@ -72,3 +72,8 @@ how to complement it.
 
 In this chpater, mainly address 2 type of data structure-Stack and queue which are can be implemented by list. The idea about how to make the complexity decrease from O(N) to O(1) is the key in Queue.
 
+## Chapter Seven: **Linked List**
+>[1]**Single Linked Lists** relies on a lightweight object known as Node(reference to element and references to neighboring nodes)- we can use this single linked list to implement stack and queue.
+[2]**Doubly Linked Lists** a slightly diffence at head and tail(no head.element or tail.element) and node is slightly different
+[3]**The Positional List ADT** The reason why not just use reference as a Position:(1)encapsulate(2)user-friendly.So we need a position ADT serve for List(which is similar as reference, but silghtly different)
+

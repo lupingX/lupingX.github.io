@@ -4,8 +4,7 @@ title: Algorithm practice?
 
 <p class="lead">Here is a collection of my personal code when practice algorithm at Leetcode</p>
 
-From [the project's readme](https://github.com/jekyll/jekyll/blob/master/README.markdown):
-
+List:
 <br>[**Two Sum[E]**](#Two Sum)
 <br>[**3Sum[M]**](#3Sum)
 <br>[**3SumClosest[M]**](#3SumClosest)
@@ -253,7 +252,22 @@ thought::
 * the idea should be combine 2 sorted array to one sorted array
 * MIT course- merge sort, the complexity should be NlogN, whihc is more than requirement
 * The difference is that we don't need a sorted array- but the k-th number.
+* [divide and conquer](https://hk029.gitbooks.io/leetbook/content/%E5%88%86%E6%B2%BB/004.%20Median%20of%20Two%20Sorted%20Arrays[H]/004.%20Median%20of%20Two%20Sorted%20Arrays[H].html)
 
 pseudocode:: input(nums1, nums2) both list
-* 
+* find the shortest L1 then do binary search: C1=len(L1)/2 C2=K-C1 initilize
+    - until L1.left<L2.right and L2.left<L1.right
+    - if L1.left>L2.left move right
 
+```python
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        if len(nums1)<=len(nums2):
+            l1=nums1
+            l2=nums2
+        else:
+            l1=nums1
+            l2=nums2#make sure l1 shortest
+        C1=len(L1)-1
+
+```
