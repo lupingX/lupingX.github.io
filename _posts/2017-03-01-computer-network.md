@@ -25,3 +25,13 @@ Limited BA means broadcast to yourself, but DB is broadcast to another network
 <br>255.255.255.192 in CA-{host ip(2^6-2) subnet(2^[18-8])}..in CB..in CC..
 
 if the ip 200.5.2.24- which means he belongs the CC, if the mask is 255.255.255.192, then the network 200.5.2.0, subnet 200.5.2.0, and divide the network into 4 parts... we can find the subnet and host ip...
+
+
+## Chapter: Subnetting in CIDR, VLSM in CIDR##
+><br>20.30.40.10/25 which means we have network id(20.30.40.0) and host ip to(20.30.40.127) total 2^7=128 ip address avaible. Then we can divide the network into 2/4/8...subnet work just needs to know the new one:20.30.40.10/26.
+Which means the subnet mask is 255.255.255.96
+<br>The total network can also be devide by VLSM (which means not every subnet size is same..0/10/11)
+<br>In the computer we needs to know ipv4-(from ISP) DGW-(router) SM-(subnet mask) DNS-(change the domain to ip address). why we needs to know SM?(in previous, we know SM is for router to find the right interface then transmit the data to the right subnet)...Because if I_a add SM is same as Destination_IP add this SM, then we can say that they are at the same subnet, then A will send the data directly to B not router. Otherwise A will send it to router. (And maybe this assumption is not right.)
+<br>SM is 255.255.255.255 then which means A will always send the data to router..DBA- which just make host id to 1. so that only knows the DBA can't find the network ip....
+
+
