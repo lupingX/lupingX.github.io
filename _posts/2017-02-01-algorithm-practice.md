@@ -259,15 +259,61 @@ pseudocode:: input(nums1, nums2) both list
     - until L1.left<L2.right and L2.left<L1.right
     - if L1.left>L2.left move right
 
+This is hard- - :(1)how to divide into two part[1,2]=>[#1#2#](2)then binary search
 ```python
 class Solution(object):
-    def findMedianSortedArrays(self, nums1, nums2):
-        if len(nums1)<=len(nums2):
-            l1=nums1
-            l2=nums2
+   def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        if len(nums1) <= len(nums2):
+            l1 = nums1
+            l2 = nums2
         else:
-            l1=nums1
-            l2=nums2#make sure l1 shortest
-        C1=len(L1)-1
-
+            l1 = nums2
+            l2 = nums1  # make sure l1 shortest
+        K = len(nums1) + len(nums2)
+        l1_min = 0
+        l1_max = 2 * len(l1)
+        MIN_NUMBER = min(l1 + l2)
+        MAX_NUMBER = max(l1 + l2)
+        while l1_min <= l1_max:
+            c1 = (l1_min + l1_max) // 2
+            c2 = K - c1
+            l1_left = l1[(c1 - 1) // 2] if c1 >=1 else MIN_NUMBER
+            l1_right = l1[c1 // 2] if c1 <= 2 * len(l1)- 1 else MAX_NUMBER
+            l2_left = l2[(c2 - 1) // 2] if c2 >= 1 else MIN_NUMBER
+            l2_right = l2[c2 // 2] if c2 <= 2 * len(l2)- 1 else MAX_NUMBER
+            if l1_left <= l2_right and l2_left <= l1_right:
+                break
+            elif l1_left > l2_right:
+                # choose the left to be a new place
+                l1_max = c1-1
+            else:
+                # choose the right to be a new place
+                l1_min = c1+1
+        if (len(l1)+len(l2))%2==0:
+            return (max(l1_left, l2_left) + min(l2_right, l1_right)) / 2.0
+        else:
+            return max(l1_left, l2_left)
 ```
+
+<a name="Longest Palindromic Substring"></a>
+**Longest Palindromic Substring**
+>Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+```python
+Input: "babad"
+Output: "bab"
+Note: "aba" is also a valid answer.
+```
+
+thought:
+(1)maybe we can use # so that we can test every mid point of two char
+
+pseudocode::
+* s1 to store the current longest string and s_index=0 then while loop(s_index<2*len(string)):
+    - compare and store the longest
+    - s_index+=2
+Manacher's Algorithm

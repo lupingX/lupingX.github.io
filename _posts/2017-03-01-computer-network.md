@@ -26,6 +26,12 @@ Limited BA means broadcast to yourself, but DB is broadcast to another network
 
 if the ip 200.5.2.24- which means he belongs the CC, if the mask is 255.255.255.192, then the network 200.5.2.0, subnet 200.5.2.0, and divide the network into 4 parts... we can find the subnet and host ip...
 
+## Chapter: Classless Inter Domain Routing.##
+><br>if we divide the whole network into Class(A-0,B-10,C-110,D-1111,E-1110) which means we can't choose the size of internet as we want. So CIDR shows.
+<br>NID HID, the size of Network can be any 2^n u want. (200.2.1.20|27) means 27 for BID or NID then 5 bits for HID. SO the range of this network should be 200.2.1.0-200.2.1.31(2^5) and the first one(200.2.1.0 is used as BID and 200.2.1.31 is used as Direct Broadcasting so the avaible ip size is 32-2=30)
+<br>(NID HID) so that the ip address can be comntinuous.  (100.1.2.40/28) we can find the whole network ip..(100.1.2.32-100.1.2.47)
+
+The advantage of Class is that we already knows the network size and then can find the subnet host directly. However we can't divide the whole network as we what. CIDR is for any size of network size../
 
 ## Chapter: Subnetting in CIDR, VLSM in CIDR##
 ><br>20.30.40.10/25 which means we have network id(20.30.40.0) and host ip to(20.30.40.127) total 2^7=128 ip address avaible. Then we can divide the network into 2/4/8...subnet work just needs to know the new one:20.30.40.10/26.
