@@ -44,3 +44,11 @@ Which means the subnet mask is 255.255.255.96
 ><br><1>Combine some of the network together to get a superneting, so that other routers don't need to know any of the subnet. So that the condition for some of networks can combine togeher are: contiguous - -. exam:(200.1.0.0/24 200.1.1.0/24 200.1.2.0/24 200.1.3.0/24 can combine get:200.1.0.0/25). If we only wants to know whether this network belongs to the superneting, we just needs to change the SM to 255.255.255.192
 
 another exam is : 100.1.2.0/25 100.1.2.128/26 100.1.2.192/26 also can combine to get a superneting 100.1.2.0/24 so that the SM will also changed. The SM of superneting is 255.255.255.0
+
+
+## Chapter: Dela in Computer Network and Flow control Stop and Wait##
+><br>(1)**Transmission Delay** **Tp**
+
+## Chapter12: Capacity of pipe and pipline##
+><br>(1)thick channel(pipe)- disadvantage at stop-and-read,  so using pipeling
+<br>(2)
