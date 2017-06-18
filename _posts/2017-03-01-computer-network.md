@@ -54,9 +54,10 @@ another exam is : 100.1.2.0/25 100.1.2.128/26 100.1.2.192/26 also can combine to
 <br>(2)<img src="https://lupingX.github.io/materials/computer-network/2.png" width = "300" height = "200" alt="capacity" align=center />
 Capacity is BW*TP, which is associated with the length of the pipe and the width of the pipe. FULL duplex: means can transmit forward and backward,
 Half duplex: means can only transmit forward.
-<br>(2)(https://lupingX.github.io/materials/computer-network/1.png)
+<br>(2)![stop-and-read protocol]
+(https://lupingX.github.io/materials/computer-network/1.png)
 Stop-and-read protocol: one package transmit to the channel, then waiting for the response from server. efficiency:1/(1+2*w)=1/4
-<br>(3)https://lupingX.github.io/materials/computer-network/3.png)
+<br>(3)![pipeline protocol](https://lupingX.github.io/materials/computer-network/3.png)
 Pipeline: if the size of the sequence can be chose, then u can have efficiency of 100%.
 The window size should be 1+2a which equals to the number of sequence u needed.
 Then the field of the sequence should be log2(number of sequence).
