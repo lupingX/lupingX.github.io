@@ -51,4 +51,6 @@ another exam is : 100.1.2.0/25 100.1.2.128/26 100.1.2.192/26 also can combine to
 
 ## Chapter12: Capacity of pipe and pipline##
 ><br>(1)thick channel(pipe)- disadvantage at stop-and-read,  so using pipeling
-<br>(2)
+<br>(2)！[capacity](https://lupingX.github.io/materials/computer-network/2.png
+<br>(2)！[stop-and-read protocol](https://lupingX.github.io/materials/computer-network/1.png
+<br>(3)！[pipeline protocol](https://lupingX.github.io/materials/computer-network/3.png
