@@ -51,11 +51,10 @@ another exam is : 100.1.2.0/25 100.1.2.128/26 100.1.2.192/26 also can combine to
 
 ## Chapter12: Capacity of pipe and pipline##
 ><br>(1)thick channel(pipe)- disadvantage at stop-and-read,  so using pipeling
-<br>(2)<img src="https://lupingX.github.io/materials/computer-network/2.png" width = "300" height = "200" alt="capacity" align=center />
+<br>(2)![capacity](https://lupingX.github.io/materials/computer-network/2.png)
 Capacity is BW*TP, which is associated with the length of the pipe and the width of the pipe. FULL duplex: means can transmit forward and backward,
 Half duplex: means can only transmit forward.
-<br>(2)![stop-and-read protocol]
-(https://lupingX.github.io/materials/computer-network/1.png)
+<br>(2)![stop-and-read protocol](https://lupingX.github.io/materials/computer-network/1.png)
 Stop-and-read protocol: one package transmit to the channel, then waiting for the response from server. efficiency:1/(1+2*w)=1/4
 <br>(3)![pipeline protocol](https://lupingX.github.io/materials/computer-network/3.png)
 Pipeline: if the size of the sequence can be chose, then u can have efficiency of 100%.
