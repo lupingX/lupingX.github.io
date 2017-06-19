@@ -61,3 +61,10 @@ Pipeline: if the size of the sequence can be chose, then u can have efficiency o
 The window size should be 1+2a which equals to the number of sequence u needed.
 Then the field of the sequence should be log2(number of sequence).
 But as the second figure, if u prefix the field of sequnce, then the efficient could decrease as showed in picture.
+
+## Chapter13: GO BACK N##
+<br>(1)![pipeline protocol implementation](https://lupingX.github.io/materials/computer-network/4.png) And there are 3 features for Go back N implementation
+<br>[1]is sender window size is always N
+<br>[2]receiver window size is 1
+<br>[3]Acknowlegement: if the window size is N, which means that sender part has to wait the acknowlegment from receiver then transmit N+1. 2 ways for the ACK![pipeline protocol implementation](https://lupingX.github.io/materials/computer-network/6.png)
+and the in case of the duplicate problem, the least sequence is sender windows size plus receiver window size: N+1at GBN![pipeline protocol implementation](https://lupingX.github.io/materials/computer-network/5.png)
