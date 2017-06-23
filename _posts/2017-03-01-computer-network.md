@@ -68,3 +68,17 @@ But as the second figure, if u prefix the field of sequnce, then the efficient c
 <br>[2]receiver window size is 1
 <br>[3]Acknowlegement: if the window size is N, which means that sender part has to wait the acknowlegment from receiver then transmit N+1. 2 ways for the ACK![pipeline protocol implementation](https://lupingX.github.io/materials/computer-network/6.png)
 and the in case of the duplicate problem, the least sequence is sender windows size plus receiver window size: N+1at GBN![pipeline protocol implementation](https://lupingX.github.io/materials/computer-network/5.png)
+
+
+## Chapter14: Selective repeat and comparison between all sliding window##
+<br>(1)![comparison](https://lupingX.github.io/materials/computer-network/7.png)
+<br>(2)(1)![access control](https://lupingX.github.io/materials/computer-network/8.png) TDM and polling:
+TDM is divided all the time to several user equally, then again. Which may waster some time cause some user may not transmit data when at the given time period.
+Polling is using some time to decide which user to use the link to transmit data. Although we waste some at deciding which user to use the link, but they fully use the given time period.
+
+## Chapter16: Carrier sensing multiple Access/sensing Detection##
+<br>(1)![Worst case of collision detection](https://lupingX.github.io/materials/computer-network/11.png)
+<br>(2)![Efficiency of CSMA/CD and derivation](https://lupingX.github.io/materials/computer-network/10.png)
+<br>(3)![analysis of CSMA/CD](https://lupingX.github.io/materials/computer-network/12.png)
+
+
