@@ -1,56 +1,69 @@
-# Kikofri
+# Academic Responsive (AR) Website Template
 
-Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.com/gfjaru/Kiko) by [@gfjaru](https://twitter.com/gfjaru) (which I do recommend). 
+## A Responsive HTML5/CSS3 template for setting up an academic website.
 
-It came about because I like my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the turn of the millennium.
+This template is implemented in Bootstrap (a popular HTML, CSS, and JS framework for developing responsive, mobile first projects on the web). The template has been tested on iOS, Windows Phone, Android, Chrome, Safari and other browsers. Some of its features require external free components (e.g., Google Custom Search for site-search, Twitter widget for news, Smartbib for publication indexing). Additionally, having a CV in LATEX format will help to automate the generation of material and streamline consistency between your CV and your website. You will need to edit the sources with a text editor or a capable WYSIWYG editor.
 
-You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.johantkatiska.se/)
+The original idea for setting up this template was to make an academic profile easily accessible from a smartphone.
 
-## To do:
+The template is free and open to reuse under a CC BY 4.0 licence.
 
-* Clean up redundant markup
-* Reevaluate the need for four layouts
-* Listen to Good Friendly Violent Fun by Exodus
+Enjoy!
 
-## How to:
+Copyright (c) 2015, Demetris Zeinalipour, Department of Computer Science
+University of Cyprus.
 
-1. Fork this repository
-2. Clone the repository to your computer.<br />`git clone https://github.com/YOURUSERNAME/Kikofri`  
-3. Run it.<br />`jekyll serve`
-4. If that doesn't work you might want to take a look at the Gemfile in the cloned repository and satisfy dependencies where it is needed.
- - I'd recommend [rvm](https://rvm.io/) for this.
-5. Go to http://127.0.0.1:4000 in your browser.
+All rights reserved.
 
-### General pointers:
+## Creative Commons CC BY 4.0 licence 
 
-* If you don't use Github remove the line `gh-pages` in the Gemfile in addition to consulting the [Jekyll documentation](https://jekyllrb.com/docs/home/) for [deployment options](https://jekyllrb.com/docs/deployment-methods/).
-* For indented paragraphs type: `µµ`
+The AR template is open to reuse under a CC BY 4.0 licence. This license lets others distribute, remix, tweak, and build upon AR even commercially, as long as they credit the original creation in the footer of the site. This is the most accommodating of licenses offered. Recommended for maximum dissemination and use of licensed materials.
 
-## Make it a little less ugly:
+More: http://creativecommons.org/licenses/by/4.0/legalcode
 
-1. Change the name and modify nav at `_config.yml`.
-2. Make some appropriate changes — or inappropriate if you're into those kind of things — in `about.md`.
-3. Navigate to the `_posts` folder and remove the example content by writing `rm *` in your terminal (make sure that you're in the right folder)
- - while you're at it create a post of your own like so: `touch YYYY-MM-DD.md`
- - then do this: `echo -e "---\ntitle: 'Friends Don't Lie.'\ndescription: 'No more.'\nauthor: 'Eleven'\n---" > YYYY-MM-DD.md`
-4. Type away! Reject my reality and substitute your own!
+## Credits
 
-## License
-
-The Kikofri theme by [kxxvii](https://github.com/kxxvii) is released under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). The Kiko theme by [@gfjaru](https://twitter.com/gfjaru) is released under the [MIT License](https://opensource.org/licenses/MIT). 
-
+To use AR on your site, please add the following code at the end of your website:
+```html
+<footer>
+    <small>
+    <center>
+        © YEAR | YOURNAME. Credits: AR template
+    <a onclick="javascript:$('#credit').toggle();"><img border="0" src="images/ccby.png"/></a>
+    <div style="display:none;" id="credit">[AR template available under Creative Commons CC BY 4.0 licence: 
+    <a href="https://github.com/dmsl/academic-responsive-template" target="_blank">
+        https://github.com/dmsl/academic-responsive-template 
+    </a> ]
+    </div>
+    </center>
+    </small>
+</footer>
 ```
-   Copyright 2016 kxxvii
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+## Example Site
 
-       http://www.apache.org/licenses/LICENSE-2.0
+- Dr. Demetris Zeinalipour, University of Cyprus (latest version): http://www.cs.ucy.ac.cy/~dzeina/
+- Dr. Pavlos Antoniou, University of Cyprus, Cyprus: https://www.cs.ucy.ac.cy/~csp5pa1/
+- Dr. Georgios Chatzimilioudis, University of Cyprus, Cyprus: https://www.cs.ucy.ac.cy/~gchatzim/
+- Dr. Federico Mari, Sapienza University of Rome, Italy: http://mari.di.uniroma1.it/index.html
+- Dr. Francesco Belardo, University of Naples Federico II, Italy: http://www.dma.unina.it/belardo/index.html
+- Jessica Ryan, University of Glasgow, https://jessryan.co.uk/
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-```
+to be included above, please add your name here https://docs.google.com/spreadsheets/d/1jl6MyvTFCwY1KrfOPdFcGyT4wj0ZF45dJ2ViQde_W9U/edit?usp=sharing
+
+## Components 
+
+Short description of the contents included in this release.
+
+- index.html : Contains most of the website material (single-page layout). Change this accordingly.
+- bio.html: Add your Short Bio
+- cv.html: To generate the content of this file effectively, first generate your CV from a latex file: "latex2html -no_math -html_version 3.2,math -split 0 yourcv.tex " Please use the sources under "CV-latex" if you don't have your own CV template. Then copy/paste the material onto cv.html
+- publications: tenatively add your publications in bibtex format to the following file publications/demo.bib. If PHP is available on your webserver, this will show the bibtex entries neatly.
+- talks: tenatively add your talks in bibtex format to the following file talks/presentations/demo.bibIf PHP is available on your webserver, this will show the bibtex entries neatly.
+- Search Box: Setup a custom search box through Google. Replace the respective javascript in the HTML files to make your new search box effective.
+
+## CR (Course Responsive) Template
+
+Also check out the sister template designated for courses: https://github.com/dmsl/course-responsive-template
+
+
