@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}</title>
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
+---
+layout: compress
+---
+
+{% include base_path %}
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
   </head>
-<body>
-  <div class="container">
+
+  <body>
+
+    {% include browser-upgrade.html %}
+    {% include masthead.html %}
+
     {{ content }}
-  </div>
-</body>
+
+    </script>
+
+    <div class="page__footer">
+      <footer>
+        {% include footer/custom.html %}
+        {% include footer.html %}
+      </footer>
+    </div>
+
+    {% include scripts.html %}
+
+  </body>
 </html>
