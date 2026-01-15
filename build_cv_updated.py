@@ -86,7 +86,7 @@ a:hover{ text-decoration:underline; }
 .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
 .name{ font-size:20px; font-weight:750; margin:0; line-height:1.2; }
 .title{ margin:6px 0 0; color:var(--muted); font-size:13px; }
-.tags{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+.keywords{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
 .tag{ font-size:12px; padding:4px 10px; border-radius:999px; border:1px solid var(--line); background:#fafafa; color:#334155; }
 
 .contact{
@@ -281,7 +281,7 @@ def parse_front_matter(md_text: str) -> Tuple[Dict[str, object], str]:
         key = k.strip().lower()
         val = v.strip().strip('"').strip("'")
 
-        if key == "tags":
+        if key == "keywords":
             val2 = val.strip()
             if val2.startswith("[") and val2.endswith("]"):
                 val2 = val2[1:-1].strip()
