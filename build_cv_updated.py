@@ -243,7 +243,7 @@ $PDF_BTN
     <main class="card main">
       <div class="topbar">
         <div>
-          <h1>Joffrey's CV</h1>
+          <h1>Luping's CV</h1>
           <div class="muted">$SUBTITLE</div>
         </div>
         <div class="meta">
