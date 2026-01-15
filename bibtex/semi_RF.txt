@@ -1,0 +1,10 @@
+@ARTICLE{10268017,
+  author={Wang, Weidong and Luo, Cheng and An, Jiancheng and Gan, Lu and Liao, Hongshu and Yuen, Chau},
+  journal={IEEE Internet of Things Journal}, 
+  title={Semisupervised RF Fingerprinting With Consistency-Based Regularization}, 
+  year={2024},
+  volume={11},
+  number={5},
+  pages={8624-8636},
+  keywords={Fingerprint recognition;Radio frequency;Data augmentation;Internet of Things;Wireless communication;Deep learning;Classification tree analysis;Consistency-based regularization;data augmentation;deep learning;deep semisupervised learning;pseudo-labeling;radio frequency (RF) fingerprinting},
+  doi={10.1109/JIOT.2023.3320975}}
