@@ -86,7 +86,7 @@ a:hover{ text-decoration:underline; }
 .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
 .name{ font-size:20px; font-weight:750; margin:0; line-height:1.2; }
 .title{ margin:6px 0 0; color:var(--muted); font-size:13px; }
-.keywords{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+.keywords, .tags{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
 .tag{ font-size:12px; padding:4px 10px; border-radius:999px; border:1px solid var(--line); background:#fafafa; color:#334155; }
 
 .contact{
@@ -259,6 +259,14 @@ $SECTIONS
 </body>
 </html>
 """)
+def parse_list_field(val: str) -> List[str]:
+    v = (val or "").strip().strip('"').strip("'")
+    # 支持 [a,b,c]
+    if v.startswith("[") and v.endswith("]"):
+        v = v[1:-1].strip()
+    # 支持 a/b/c、a、b、c、a;b;c 等写法
+    v = re.sub(r"[\/、;；]+", ",", v)
+    return [t.strip() for t in v.split(",") if t.strip()]
 
 
 def parse_front_matter(md_text: str) -> Tuple[Dict[str, object], str]:
@@ -281,11 +289,8 @@ def parse_front_matter(md_text: str) -> Tuple[Dict[str, object], str]:
         key = k.strip().lower()
         val = v.strip().strip('"').strip("'")
 
-        if key == "keywords":
-            val2 = val.strip()
-            if val2.startswith("[") and val2.endswith("]"):
-                val2 = val2[1:-1].strip()
-            meta[key] = [t.strip() for t in val2.split(",") if t.strip()]
+        if key in ("keywords", "tags"):
+            meta[key] = parse_list_field(val)
         else:
             meta[key] = val
     return meta, body
@@ -485,9 +490,9 @@ def main():
     website = str(meta.get("website", ""))
     github = str(meta.get("github", ""))
     location = str(meta.get("location", ""))
-    tags = meta.get("tags", [])
+    tags = meta.get("keywords") or meta.get("tags") or []
     if isinstance(tags, str):
-        tags = [t.strip() for t in tags.split(",") if t.strip()]
+        tags = parse_list_field(tags)
     if not isinstance(tags, list):
         tags = []
     blogurl = str(meta.get("blogurl", ""))
