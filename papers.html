@@ -3,6 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<script>
+/* Mobile viewport fix: some host themes/in-app browsers can end up with a desktop-like viewport.
+   We force a device-width viewport early and mark the page for mobile CSS hardening. */
+(function(){
+  var ua = navigator.userAgent || "";
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod|Mobile|MicroMessenger/i.test(ua);
+  try{
+    if (window.matchMedia){
+      var hasCoarse = window.matchMedia("(any-pointer: coarse)").matches;
+      var hasFine = window.matchMedia("(pointer: fine)").matches;
+      if (hasCoarse && !hasFine) isMobile = true;
+    }
+  }catch(e){}
+  if (!isMobile) return;
+
+  var content = "width=device-width, initial-scale=1, viewport-fit=cover";
+  try{
+    var metas = document.querySelectorAll('meta[name="viewport"]');
+    for (var i=0;i<metas.length;i++){
+      metas[i].setAttribute("content", content);
+    }
+  }catch(e){}
+  try{
+    var de = document.documentElement;
+    de.classList.add("cv-mobile");
+    // Clear any accidental scaling injected elsewhere
+    de.style.zoom = "";
+    de.style.transform = "";
+    de.style.transformOrigin = "";
+    de.style.width = "";
+  }catch(e){}
+})();
+</script>
   <title>向路平 / Luping Xiang</title>
   <meta name="description" content="CV" />
   <!-- CV_SHELL_GENERATED -->
@@ -23,7 +57,8 @@
 }
 *{ box-sizing:border-box; }
 html{ overflow-y:auto; scrollbar-gutter: stable; }
-@supports not (scrollbar-gutter: stable){ html{ overflow-y: scroll; } }
+body{ overflow-y:auto; }
+@supports not (scrollbar-gutter: stable){ html{ overflow-y: scroll; } body{ overflow-y: scroll; } }
 body{
   margin:0;
   font-family:var(--sans);
@@ -34,6 +69,13 @@ body{
   line-height:1.6;
   -webkit-text-size-adjust: 100%;
 }
+
+/* Mobile hardening: ensure the CV always fits the screen width on phones/in-app browsers */
+html.cv-mobile, html.cv-mobile body{ width:100%; max-width:100%; overflow-x:hidden; }
+html.cv-mobile .wrap{ max-width:100%; margin:12px auto; padding:0 12px 20px; gap:14px; }
+html.cv-mobile .sidebar{ position:relative; top:auto; }
+html.cv-mobile .navbar{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+html.cv-mobile .navbar::-webkit-scrollbar{ display:none; }
 a{ color:var(--primary); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
@@ -334,6 +376,13 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
 
 .footer{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; }
 
+
+/* Layout lock (keeps layout consistent across pages at the same zoom) */
+html.cv-layout-1 .wrap{ grid-template-columns:1fr; }
+html.cv-layout-1 .sidebar{ position:relative; top:auto; }
+html.cv-layout-1 .topbar .meta{ text-align:left; white-space:normal; }
+html.cv-layout-2 .wrap{ grid-template-columns: 320px 1fr; }
+html.cv-layout-2 .sidebar{ position:sticky; top:18px; }
 @media (max-width: 940px){
   .wrap{ grid-template-columns:1fr; }
   .sidebar{ position:relative; top:auto; }
@@ -343,6 +392,9 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
 <script>
 (function(){
   var PREFIX = "CV_ZOOM=";
+  var KEY_ZOOM = "cv_zoom_desired";
+  var KEY_LAYOUT = "cv_layout_mode";
+  var LAYOUT_BREAKPOINT = 940;
 
   // --- Mobile safeguard ---
   // Mobile/touch browsers manage pinch-zoom/viewport scaling themselves.
@@ -363,11 +415,19 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
   if (isMobile){
     // Avoid carrying a desktop-stored zoom value into mobile rendering.
     try{ if (window.name && window.name.indexOf(PREFIX) === 0) window.name = ""; }catch(e){}
+    try{ sessionStorage.removeItem(KEY_ZOOM); sessionStorage.removeItem(KEY_LAYOUT); }catch(e){}
     return;
   }
 
+  function ssGet(key){
+    try{ return sessionStorage.getItem(key); }catch(e){}
+    return null;
+  }
+  function ssSet(key, val){
+    try{ sessionStorage.setItem(key, String(val)); }catch(e){}
+  }
 
-  function parseDesired(){
+  function parseDesiredFromName(){
     try{
       if (window.name && window.name.indexOf(PREFIX) === 0){
         var v = parseFloat(window.name.slice(PREFIX.length));
@@ -377,14 +437,39 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
     return null;
   }
 
+  function readDesired(){
+    var v = ssGet(KEY_ZOOM);
+    if (v != null){
+      var n = parseFloat(v);
+      if (isFinite(n) && n > 0) return n;
+    }
+    return parseDesiredFromName();
+  }
+
+  function saveDesired(){
+    ssSet(KEY_ZOOM, desired);
+    // Keep legacy behavior if window.name is already used for CV_ZOOM.
+    // Avoid overwriting other pages' window.name payloads in the same tab.
+    try{
+      if (!window.name || window.name.indexOf(PREFIX) === 0){
+        window.name = PREFIX + String(desired);
+      }
+    }catch(e){}
+  }
+
+  function round6(x){
+    return Math.round(x * 1000000) / 1000000;
+  }
+
   var lastDpr = window.devicePixelRatio || 1;
-  var desired = parseDesired();
+  var desired = readDesired();
   if (!desired) desired = lastDpr;
 
-  function apply(){
+  function applyZoom(){
     var cur = window.devicePixelRatio || 1;
     if (!cur) cur = 1;
     var factor = desired / cur;
+    factor = round6(factor);
     if (isFinite(factor) && factor > 0.1 && factor < 10){
       var de = document.documentElement;
       if ('zoom' in de.style){
@@ -397,26 +482,61 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
     }
   }
 
-  function save(){
-    try{ window.name = PREFIX + String(desired); }catch(e){}
+  // --- Layout lock ---
+  function computeLayoutMode(){
+    // Use clientWidth to reduce sensitivity to scrollbars.
+    var w = document.documentElement.clientWidth || window.innerWidth || 0;
+    return (w <= LAYOUT_BREAKPOINT) ? '1' : '2';
   }
 
-  // Apply ASAP (before paint as much as possible)
-  apply();
+  function applyLayoutMode(mode){
+    var html = document.documentElement;
+    html.classList.remove('cv-layout-1', 'cv-layout-2');
+    if (mode === '1') html.classList.add('cv-layout-1');
+    else html.classList.add('cv-layout-2');
+    ssSet(KEY_LAYOUT, mode);
+  }
+
+  var storedLayout = ssGet(KEY_LAYOUT);
+  if (storedLayout !== '1' && storedLayout !== '2') storedLayout = null;
+  var layoutMode = storedLayout || computeLayoutMode();
+  applyLayoutMode(layoutMode);
+
+  var lastW = document.documentElement.clientWidth || window.innerWidth || 0;
+
+  // Apply ASAP
+  applyZoom();
 
   // If user changes browser zoom (devicePixelRatio changes), adopt it and avoid double scaling.
-  window.addEventListener("resize", function(){
+  window.addEventListener('resize', function(){
     var dpr = window.devicePixelRatio || 1;
+    var w = document.documentElement.clientWidth || window.innerWidth || 0;
+
+    // 1) Keep original zoom persistence behavior based on DPR changes
     if (Math.abs(dpr - lastDpr) > 0.001){
       desired = dpr;
       lastDpr = dpr;
-      apply(); // becomes 1x when desired == dpr
-      save();
+      applyZoom();
+      saveDesired();
+      // DPR change likely alters effective width => recompute layout mode
+      applyLayoutMode(computeLayoutMode());
+      lastW = w;
+      return;
+    }
+
+    // 2) Window resize (user resizing) can change layout; ignore tiny width changes
+    if (Math.abs(w - lastW) > 60){
+      lastW = w;
+      applyLayoutMode(computeLayoutMode());
     }
   });
 
-  window.addEventListener("pagehide", save);
-  window.addEventListener("beforeunload", save);
+  window.addEventListener('pagehide', function(){
+    saveDesired();
+  });
+  window.addEventListener('beforeunload', function(){
+    saveDesired();
+  });
 })();
 </script>
 </head>
