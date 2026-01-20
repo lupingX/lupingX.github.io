@@ -152,11 +152,18 @@ body{
 }
 
 /* Mobile hardening: ensure the CV always fits the screen width on phones/in-app browsers */
-html.cv-mobile, html.cv-mobile body{ width:100%; max-width:100%; overflow-x:hidden; }
+html.cv-mobile, html.cv-mobile body{ width:100%; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
 html.cv-mobile .wrap{ max-width:100%; margin:12px auto; padding:0 12px 20px; gap:14px; }
 html.cv-mobile .sidebar{ position:relative; top:auto; }
 html.cv-mobile .navbar{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
 html.cv-mobile .navbar::-webkit-scrollbar{ display:none; }
+html.cv-mobile .wrap{ grid-template-columns:1fr !important; }
+html.cv-mobile .main, html.cv-mobile .sidebar{ width:100%; min-width:0; }
+html.cv-mobile .topbar .meta{ text-align:left; white-space:normal; }
+html.cv-mobile p, html.cv-mobile li, html.cv-mobile .pub, html.cv-mobile .ext-content{ overflow-wrap:anywhere; word-break:break-word; }
+html.cv-mobile .pub{ flex-direction:column; }
+html.cv-mobile .pub .idx{ width:auto; text-align:left; padding-top:0; }
+
 a{ color:var(--primary); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
@@ -476,7 +483,7 @@ HTML_DOC = Template("""<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
 
 <script>
 /* Mobile viewport fix: some host themes/in-app browsers can end up with a desktop-like viewport.
@@ -493,7 +500,7 @@ HTML_DOC = Template("""<!doctype html>
   }catch(e){}
   if (!isMobile) return;
 
-  var content = "width=device-width, initial-scale=1, viewport-fit=cover";
+  var content = "width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=5, user-scalable=yes, viewport-fit=cover";
   try{
     var metas = document.querySelectorAll('meta[name="viewport"]');
     for (var i=0;i<metas.length;i++){
