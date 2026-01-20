@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>向路平 / Luping Xiang</title>
   <meta name="description" content="CV" />
   <!-- CV_SHELL_GENERATED -->
@@ -22,6 +22,8 @@
           "PingFang SC","Hiragino Sans GB","Microsoft YaHei", sans-serif;
 }
 *{ box-sizing:border-box; }
+html{ overflow-y:auto; scrollbar-gutter: stable; }
+@supports not (scrollbar-gutter: stable){ html{ overflow-y: scroll; } }
 body{
   margin:0;
   font-family:var(--sans);
@@ -30,6 +32,7 @@ body{
               radial-gradient(1200px 500px at 90% 10%, #ecfeff 0%, transparent 60%),
               var(--bg);
   line-height:1.6;
+  -webkit-text-size-adjust: 100%;
 }
 a{ color:var(--primary); text-decoration:none; }
 a:hover{ text-decoration:underline; }
@@ -341,6 +344,29 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
 (function(){
   var PREFIX = "CV_ZOOM=";
 
+  // --- Mobile safeguard ---
+  // Mobile/touch browsers manage pinch-zoom/viewport scaling themselves.
+  // This DPR-based zoom helper can make the first render look over-zoomed on mobile.
+  // To keep mobile always "fit-to-screen", we disable it on mobile/touch devices.
+  // Desktop behavior (including remembered zoom across navbar pages) is unchanged.
+  var mq = window.matchMedia ? window.matchMedia.bind(window) : null;
+  var hasFine = false, hasCoarse = false;
+  try{
+    if (mq){
+      hasFine = mq("(pointer: fine)").matches;
+      hasCoarse = mq("(any-pointer: coarse)").matches;
+    }
+  }catch(e){}
+  var ua = (navigator.userAgent || "");
+  var uaMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+  var isMobile = (hasCoarse && !hasFine) || uaMobile;
+  if (isMobile){
+    // Avoid carrying a desktop-stored zoom value into mobile rendering.
+    try{ if (window.name && window.name.indexOf(PREFIX) === 0) window.name = ""; }catch(e){}
+    return;
+  }
+
+
   function parseDesired(){
     try{
       if (window.name && window.name.indexOf(PREFIX) === 0){
@@ -430,7 +456,7 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
           <div class="muted"></div>
         </div>
         <div class="meta">
-          <div>Last updated: 2026-01-20</div>
+          <div>Last updated: 2026-01-21</div>
         </div>
       </div>
 
