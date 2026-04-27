@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+
+<script>
+/* Mobile viewport fix */
+(function(){
+  var ua = navigator.userAgent || "";
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod|Mobile|MicroMessenger/i.test(ua);
+  try{
+    if (window.matchMedia){
+      var hasCoarse = window.matchMedia("(any-pointer: coarse)").matches;
+      var hasFine = window.matchMedia("(pointer: fine)").matches;
+      if (hasCoarse && !hasFine) isMobile = true;
+    }
+  }catch(e){}
+  if (!isMobile) return;
+
+  var content = "width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=5, user-scalable=yes, viewport-fit=cover";
+  try{
+    var metas = document.querySelectorAll('meta[name="viewport"]');
+    for (var i=0;i<metas.length;i++){
+      metas[i].setAttribute("content", content);
+    }
+  }catch(e){}
+  try{
+    var de = document.documentElement;
+    de.classList.add("cv-mobile");
+    // Clear any accidental scaling injected elsewhere
+    de.style.zoom = "";
+    de.style.transform = "";
+    de.style.transformOrigin = "";
+    de.style.width = "";
+  }catch(e){}
+})();
+</script>
+  <title>向路平 / Luping Xiang</title>
+  <meta name="description" content="CV" />
+  <style>
+:root{
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --primary:#2563eb;
+  --primary-weak:#dbeafe;
+  --shadow:0 10px 30px rgba(17,24,39,.08);
+  --radius:16px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+          "PingFang SC","Hiragino Sans GB","Microsoft YaHei", sans-serif;
+}
+*{ box-sizing:border-box; }
+
+/* FIX: Ensure html/body allow sticky positioning (no overflow hidden on parents) */
+html {
+  overflow-y: auto; /* Let browser handle scroll */
+  height: auto;
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  /* overflow-x: hidden;  <-- REMOVED: This often breaks sticky in some browsers */
+  font-family: var(--sans);
+  color: var(--text);
+  background: radial-gradient(1200px 500px at 10% 0%, #eef2ff 0%, transparent 60%),
+              radial-gradient(1200px 500px at 90% 10%, #ecfeff 0%, transparent 60%),
+              var(--bg);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
+}
+
+/* Mobile hardening */
+html.cv-mobile, html.cv-mobile body{ width:100%; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+html.cv-mobile .wrap{ max-width:100%; margin:12px auto; padding:0 12px 20px; gap:14px; display:block; }
+html.cv-mobile .sidebar{ position:relative; top:auto; max-height:none; overflow:visible; width:100%; margin-bottom:20px; }
+html.cv-mobile .navbar{ overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap; }
+html.cv-mobile .navbar::-webkit-scrollbar{ display:none; }
+html.cv-mobile .wrap{ grid-template-columns:1fr !important; }
+html.cv-mobile .main, html.cv-mobile .sidebar{ width:100%; min-width:0; }
+html.cv-mobile .topbar .meta{ text-align:left; white-space:normal; }
+html.cv-mobile p, html.cv-mobile li, html.cv-mobile .pub, html.cv-mobile .ext-content{ overflow-wrap:anywhere; word-break:break-word; }
+html.cv-mobile .pub{ flex-direction:column; }
+html.cv-mobile .pub .idx{ width:auto; text-align:left; padding-top:0; }
+
+a{ color:var(--primary); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:28px 16px 32px; 
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:18px;
+  align-items:start; /* Crucial for sticky: prevents sidebar from stretching */
+  min-height: 100vh; /* FIX: Prevents bottom clipping */
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* Sidebar */
+.sidebar{
+  /* FIX: -webkit-sticky for Safari/iOS compatibility */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 18px;
+  padding: 18px 18px 14px;
+  /* FIX: Ensure it fits in viewport so it can actually stick */
+  max-height: calc(100vh - 36px); 
+  overflow-y: auto; /* Internal scroll if content is too long */
+  z-index: 10;
+  /* Hide scrollbar for cleaner look */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+
+.profile{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.avatar{
+  width:76px; height:76px;
+  border-radius:18px;
+  background:#ddd;
+  overflow:hidden;
+  flex:0 0 auto;
+  border:1px solid var(--line);
+}
+.avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+.name{ font-size:20px; font-weight:750; margin:0; line-height:1.2; }
+.title{ margin:6px 0 0; color:var(--muted); font-size:13px; }
+.tags{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+.tag{ font-size:12px; padding:4px 10px; border-radius:999px; border:1px solid var(--line); background:#fafafa; color:#334155; }
+
+.contact{
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+.contact .item{
+  display:flex; gap:10px; align-items:center;
+  padding:7px 0; font-size:14px;
+}
+.contact .k{ color:var(--muted); width:72px; flex:0 0 auto; line-height:1.2; }
+.contact .v{ flex:1; min-width:0; overflow-wrap:anywhere; }
+.contact .v a{
+  display:block;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.actions{ padding-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 12px; border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff; color:var(--text);
+  font-weight:650; font-size:13px;
+  cursor:pointer; user-select:none;
+}
+.btn.primary{ background:var(--primary); border-color:var(--primary); color:#fff; }
+.btn:hover{ filter:brightness(.98); }
+
+.hint{ margin:12px 0 0; color:var(--muted); font-size:12px; }
+
+/* WeChat QR */
+.wechat{
+  margin-top:14px;
+  padding:12px 12px 10px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(245,158,11,.10));
+}
+.wechat .wechat-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:900;
+  font-size:13px;
+  color:#0f172a;
+}
+.wechat .wechat-badge{
+  font-size:11px;
+  font-weight:900;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid rgba(37,99,235,.25);
+  background: rgba(37,99,235,.10);
+  color:#1e40af;
+}
+.wechat a{ text-decoration:none; }
+.wechat img{
+  width:100%;
+  max-width:210px;
+  display:block;
+  margin:10px auto 6px;
+  border-radius:14px;
+  border:1px solid rgba(37,99,235,.18);
+  background:#fff;
+  box-shadow:0 12px 26px rgba(17,24,39,.10);
+}
+.wechat .wechat-name{
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  color:#0f172a;
+  margin-top:2px;
+}
+.wechat .wechat-hint{
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:1px;
+}
+
+/* Main */
+.main{ padding:18px 18px 20px; }
+
+/* Navbar */
+.navbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  margin-bottom:14px;
+}
+.navbar .navlink{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--text);
+  font-weight:750;
+  font-size:13px;
+}
+.navbar .navlink:hover{
+  text-decoration:none;
+  filter:brightness(.98);
+  border-color: rgba(37,99,235,.35);
+  box-shadow:0 0 0 4px var(--primary-weak);
+}
+
+.navbar .navlink.active{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 0 0 4px var(--primary-weak);
+}
+
+.ext-content{ font-size:13px; color:#374151; }
+.ext-content img{ max-width:100%; height:auto; }
+.ext-content table{ border-collapse:collapse; max-width:100%; }
+.ext-content th,.ext-content td{ border:1px solid var(--line); padding:6px 8px; }
+.ext-content code{ font-family:var(--mono); font-size:12px; background:#f3f4f6; padding:2px 4px; border-radius:6px; }
+
+/* Callouts */
+.callout{
+  margin:12px 0;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-left:6px solid var(--primary);
+  border-radius:14px;
+  background: linear-gradient(90deg, rgba(37,99,235,.12), rgba(16,185,129,.08));
+}
+.callout .callout-title{
+  margin:0 0 6px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:900;
+  font-size:13px;
+  color:#0f172a;
+}
+.callout .callout-body p{ margin:6px 0; }
+.callout .callout-body ul{ margin-top:6px; }
+.callout.recruit{
+  border-left-color:#f59e0b;
+  background: linear-gradient(90deg, rgba(245,158,11,.18), rgba(37,99,235,.08));
+}
+.callout.success{
+  border-left-color:#10b981;
+  background: linear-gradient(90deg, rgba(16,185,129,.16), rgba(37,99,235,.06));
+}
+.callout.warn{
+  border-left-color:#ef4444;
+  background: linear-gradient(90deg, rgba(239,68,68,.14), rgba(245,158,11,.06));
+}
+mark.hl{
+  padding:1px 4px;
+  border-radius:6px;
+  background: rgba(245,158,11,.28);
+}
+
+
+
+
+
+
+
+
+.topbar{
+  display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+  padding-bottom:10px; border-bottom:1px solid var(--line); margin-bottom:14px;
+}
+.topbar h1{ margin:0; font-size:22px; line-height:1.25; }
+.topbar .meta{
+  text-align:right; color:var(--muted); font-size:12px;
+  font-family:var(--mono); white-space:nowrap;
+}
+
+section{ padding:14px 0; border-bottom:1px dashed var(--line); }
+section:last-child{ border-bottom:none; }
+.sec-title{
+  display:flex; align-items:center; gap:10px;
+  margin:0 0 10px; font-size:15px; font-weight:800;
+}
+.dot{
+  width:10px; height:10px; border-radius:999px;
+  background:var(--primary);
+  box-shadow:0 0 0 6px var(--primary-weak);
+  flex:0 0 auto;
+}
+.lead{ margin:0; font-size:14px; color:#111827; }
+.muted{ color:var(--muted); }
+
+ul{ margin:8px 0 0 18px; padding:0; color:#374151; font-size:13px; }
+li{ margin:6px 0; }
+p{ margin:8px 0; color:#374151; font-size:13px; }
+
+/* Publications */
+.pub{
+  display:flex; gap:12px;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  margin-top:10px;
+}
+.pub .idx{
+  font-family:var(--mono);
+  color:var(--muted);
+  width:28px;
+  flex:0 0 auto;
+  text-align:right;
+  padding-top:2px;
+}
+.pub .content{ flex:1; min-width:0; }
+.pub .ptitle{ margin:0; font-weight:800; color:#111827; font-size:13px; }
+.pub .meta-line{
+  margin:4px 0 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-size:12px;
+  color:#374151;
+}
+.pub .authors-text{ min-width:0; }
+.pub .venue-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:2px 10px;
+  border-radius:999px;
+  border:1px solid rgba(37,99,235,.25);
+  background: linear-gradient(90deg, rgba(37,99,235,.14), rgba(16,185,129,.10));
+  color:#0f172a;
+  font-weight:800;
+}
+.pub .authors{ margin:4px 0 0; font-size:12px; color:#374151; }
+.pub .venue{ margin:4px 0 0; font-size:12px; color:var(--muted); }
+.links{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+.pill{
+  font-size:12px;
+  padding:5px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+}
+
+.footer{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; }
+
+
+/* Layout lock (keeps layout consistent across pages at the same zoom) */
+html.cv-layout-1 .wrap{ grid-template-columns:1fr; }
+html.cv-layout-1 .sidebar{ position:relative; top:auto; }
+html.cv-layout-1 .topbar .meta{ text-align:left; white-space:normal; }
+html.cv-layout-2 .wrap{ grid-template-columns: 320px 1fr; }
+html.cv-layout-2 .sidebar{ position:sticky; position:-webkit-sticky; top:18px; }
+@media (max-width: 940px){
+  .wrap{ grid-template-columns:1fr; }
+  .sidebar{ position:relative; top:auto; max-height:none; overflow:visible; }
+  .topbar .meta{ text-align:left; white-space:normal; }
+}
+  </style>
+<script>
+(function(){
+  /* FIX: Robust Zoom Persistence to prevent jumping */
+  var KEY_ZOOM = "cv_zoom_desired";
+  var KEY_LAYOUT = "cv_layout_mode";
+  var LAYOUT_BREAKPOINT = 940;
+
+  function ssGet(key){ try{ return sessionStorage.getItem(key); }catch(e){} return null; }
+  function ssSet(key, val){ try{ sessionStorage.setItem(key, String(val)); }catch(e){} }
+
+  // 1. Priority: Read session storage first. If null, use current device ratio.
+  var stored = ssGet(KEY_ZOOM);
+  var desired = stored ? parseFloat(stored) : (window.devicePixelRatio || 1);
+  if (!desired || !isFinite(desired)) desired = 1;
+
+  function applyZoom(){
+    // Disable on mobile to avoid fighting native behavior
+    if (document.documentElement.classList.contains("cv-mobile")) return;
+
+    var cur = window.devicePixelRatio || 1;
+    if(!cur) cur = 1;
+    
+    var factor = desired / cur;
+    factor = Math.round(factor * 1000000) / 1000000;
+    
+    if(isFinite(factor) && factor > 0.1 && factor < 10){
+      var de = document.documentElement;
+      if('zoom' in de.style){
+        de.style.zoom = factor;
+      }else{
+        // Firefox fallback
+        de.style.transformOrigin = '0 0';
+        de.style.transform = 'scale(' + factor + ')';
+        de.style.width = (100 / factor) + '%';
+        // Note: we do NOT set height here to avoid cutting off bottom
+      }
+    }
+  }
+
+  // Apply immediately
+  applyZoom();
+
+  // 2. Listener: Only update storage if user explicitly changes zoom (ctrl +/-)
+  var lastDpr = window.devicePixelRatio || 1;
+  window.addEventListener('resize', function(){
+    var dpr = window.devicePixelRatio || 1;
+    // Threshold to ignore rounding errors
+    if(Math.abs(dpr - lastDpr) > 0.001){
+      desired = dpr; 
+      lastDpr = dpr;
+      ssSet(KEY_ZOOM, desired);
+      applyZoom();
+    }
+    // Also re-check layout mode
+    applyLayoutMode(computeLayoutMode());
+  });
+
+  // --- Layout lock ---
+  function computeLayoutMode(){
+    var w = document.documentElement.clientWidth || window.innerWidth || 0;
+    return (w <= LAYOUT_BREAKPOINT) ? '1' : '2';
+  }
+
+  function applyLayoutMode(mode){
+    var html = document.documentElement;
+    html.classList.remove('cv-layout-1', 'cv-layout-2');
+    if (mode === '1') html.classList.add('cv-layout-1');
+    else html.classList.add('cv-layout-2');
+    ssSet(KEY_LAYOUT, mode);
+  }
+
+  var storedLayout = ssGet(KEY_LAYOUT);
+  var layoutMode = storedLayout || computeLayoutMode();
+  applyLayoutMode(layoutMode);
+
+  window.addEventListener('pagehide', function(){ ssSet(KEY_ZOOM, desired); });
+})();
+</script>
+</head>
+
+<body>
+  <div class="wrap">
+    <aside class="card sidebar">
+      <div class="profile">
+        <div class="avatar"><img src="https://mymarkdown-pic.oss-cn-chengdu.aliyuncs.com/img220/202601202141874.png" alt="avatar" /></div>
+        <div>
+          <h2 class="name">向路平 / Luping Xiang</h2>
+          <p class="title">南京大学苏州校区智慧网络与通信研究院、智能软件与工程学院助理教授、特聘研究员、博士生导师、小米青年学者</p>
+          <div class="tags"><span class="tag">通信物理层</span><span class="tag">AI for communications</span><span class="tag">ISAC</span><span class="tag">感知赋能通信</span></div>
+          
+        </div>
+      </div>
+
+      <div class="contact">
+<div class="item"><div class="k">E-mail</div><div class="v"><a href="mailto:luping.xiang@nju.edu.cn" title="mailto:luping.xiang@nju.edu.cn" target="_blank" rel="noopener noreferrer">luping.xiang@nju.edu.cn</a></div></div>
+<div class="item"><div class="k">Google Scholar</div><div class="v"><a href="https://scholar.google.com/citations?hl=en&amp;user=zE5j2o8AAAAJ" title="https://scholar.google.com/citations?hl=en&amp;user=zE5j2o8AAAAJ" target="_blank" rel="noopener noreferrer">scholar.google.com/citations?user=zE5j2o8AAAAJ</a></div></div>
+      </div>
+
+<div class="wechat"><div class="wechat-title"><span class="wechat-badge">WeChat</span><span>公众号</span></div><a href="https://mymarkdown-pic.oss-cn-chengdu.aliyuncs.com/img220/202601202221014.png" target="_blank" rel="noopener noreferrer"><img src="https://mymarkdown-pic.oss-cn-chengdu.aliyuncs.com/img220/202601202221014.png" alt="PHY Insight" loading="lazy" /></a><div class="wechat-name">PHY Insight</div><div class="wechat-hint">微信扫一扫，关注公众号</div></div>
+
+      <div class="actions">
+
+      </div>
+
+
+    </aside>
+
+    <main class="card main">
+<nav class="navbar"><a class="navlink" href="index.html" target="_self">Home</a><a class="navlink" href="papers.html" target="_self">Papers</a><a class="navlink" href="honors.html" target="_self">Honors</a><a class="navlink active" href="Teaching.html" target="_self">Teaching</a><a class="navlink" href="Service.html" target="_self">Service</a><a class="navlink" href="Demo.html" target="_self">Demo</a></nav>
+      <div class="topbar">
+        <div>
+          <h1></h1>
+          <div class="muted"></div>
+        </div>
+        <div class="meta">
+          <div>Last updated: 2026-04-09</div>
+        </div>
+      </div>
+
+<section>
+<h3 class="sec-title"><span class="dot"></span>Teaching\教学</h3>
+<ul>
+<li>2023春季学期：计算机通信网</li>
+<li>2023春季学期：无线网络新技术</li>
+<li>2024春季学期：计算机通信网</li>
+<li>2024春季学期：无线网络新技术</li>
+<li>2025春季学期：移动网络新技术</li>
+<li>2026春季学期：移动网络新技术</li>
+<li>2026春季学期：信息论</li>
+</ul>
+</section>
+
+      <div class="footer">© 2026 向路平 / Luping Xiang</div>
+    </main>
+  </div>
+</body>
+</html>

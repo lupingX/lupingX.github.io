@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+
+<script>
+/* Mobile viewport fix */
+(function(){
+  var ua = navigator.userAgent || "";
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod|Mobile|MicroMessenger/i.test(ua);
+  try{
+    if (window.matchMedia){
+      var hasCoarse = window.matchMedia("(any-pointer: coarse)").matches;
+      var hasFine = window.matchMedia("(pointer: fine)").matches;
+      if (hasCoarse && !hasFine) isMobile = true;
+    }
+  }catch(e){}
+  if (!isMobile) return;
+
+  var content = "width=device-width, initial-scale=1, minimum-scale=0.25, maximum-scale=5, user-scalable=yes, viewport-fit=cover";
+  try{
+    var metas = document.querySelectorAll('meta[name="viewport"]');
+    for (var i=0;i<metas.length;i++){
+      metas[i].setAttribute("content", content);
+    }
+  }catch(e){}
+  try{
+    var de = document.documentElement;
+    de.classList.add("cv-mobile");
+    // Clear any accidental scaling injected elsewhere
+    de.style.zoom = "";
+    de.style.transform = "";
+    de.style.transformOrigin = "";
+    de.style.width = "";
+  }catch(e){}
+})();
+</script>
+  <title>向路平 / Luping Xiang</title>
+  <meta name="description" content="CV" />
+  <style>
+:root{
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --primary:#2563eb;
+  --primary-weak:#dbeafe;
+  --shadow:0 10px 30px rgba(17,24,39,.08);
+  --radius:16px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+          "PingFang SC","Hiragino Sans GB","Microsoft YaHei", sans-serif;
+}
+*{ box-sizing:border-box; }
+
+/* FIX: Ensure html/body allow sticky positioning (no overflow hidden on parents) */
+html {
+  overflow-y: auto; /* Let browser handle scroll */
+  height: auto;
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  /* overflow-x: hidden;  <-- REMOVED: This often breaks sticky in some browsers */
+  font-family: var(--sans);
+  color: var(--text);
+  background: radial-gradient(1200px 500px at 10% 0%, #eef2ff 0%, transparent 60%),
+              radial-gradient(1200px 500px at 90% 10%, #ecfeff 0%, transparent 60%),
+              var(--bg);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  min-height: 100vh;
+}
+
+/* Mobile hardening */
+html.cv-mobile, html.cv-mobile body{ width:100%; max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+html.cv-mobile .wrap{ max-width:100%; margin:12px auto; padding:0 12px 20px; gap:14px; display:block; }
+html.cv-mobile .sidebar{ position:relative; top:auto; max-height:none; overflow:visible; width:100%; margin-bottom:20px; }
+html.cv-mobile .navbar{ overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap; }
+html.cv-mobile .navbar::-webkit-scrollbar{ display:none; }
+html.cv-mobile .wrap{ grid-template-columns:1fr !important; }
+html.cv-mobile .main, html.cv-mobile .sidebar{ width:100%; min-width:0; }
+html.cv-mobile .topbar .meta{ text-align:left; white-space:normal; }
+html.cv-mobile p, html.cv-mobile li, html.cv-mobile .pub, html.cv-mobile .ext-content{ overflow-wrap:anywhere; word-break:break-word; }
+html.cv-mobile .pub{ flex-direction:column; }
+html.cv-mobile .pub .idx{ width:auto; text-align:left; padding-top:0; }
+
+a{ color:var(--primary); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:28px 16px 32px; 
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:18px;
+  align-items:start; /* Crucial for sticky: prevents sidebar from stretching */
+  min-height: 100vh; /* FIX: Prevents bottom clipping */
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* Sidebar */
+.sidebar{
+  /* FIX: -webkit-sticky for Safari/iOS compatibility */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 18px;
+  padding: 18px 18px 14px;
+  /* FIX: Ensure it fits in viewport so it can actually stick */
+  max-height: calc(100vh - 36px); 
+  overflow-y: auto; /* Internal scroll if content is too long */
+  z-index: 10;
+  /* Hide scrollbar for cleaner look */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+
+.profile{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.avatar{
+  width:76px; height:76px;
+  border-radius:18px;
+  background:#ddd;
+  overflow:hidden;
+  flex:0 0 auto;
+  border:1px solid var(--line);
+}
+.avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+.name{ font-size:20px; font-weight:750; margin:0; line-height:1.2; }
+.title{ margin:6px 0 0; color:var(--muted); font-size:13px; }
+.tags{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+.tag{ font-size:12px; padding:4px 10px; border-radius:999px; border:1px solid var(--line); background:#fafafa; color:#334155; }
+
+.contact{
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+.contact .item{
+  display:flex; gap:10px; align-items:center;
+  padding:7px 0; font-size:14px;
+}
+.contact .k{ color:var(--muted); width:72px; flex:0 0 auto; line-height:1.2; }
+.contact .v{ flex:1; min-width:0; overflow-wrap:anywhere; }
+.contact .v a{
+  display:block;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.actions{ padding-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 12px; border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff; color:var(--text);
+  font-weight:650; font-size:13px;
+  cursor:pointer; user-select:none;
+}
+.btn.primary{ background:var(--primary); border-color:var(--primary); color:#fff; }
+.btn:hover{ filter:brightness(.98); }
+
+.hint{ margin:12px 0 0; color:var(--muted); font-size:12px; }
+
+/* WeChat QR */
+.wechat{
+  margin-top:14px;
+  padding:12px 12px 10px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background: linear-gradient(135deg, rgba(37,99,235,.08), rgba(245,158,11,.10));
+}
+.wechat .wechat-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:900;
+  font-size:13px;
+  color:#0f172a;
+}
+.wechat .wechat-badge{
+  font-size:11px;
+  font-weight:900;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid rgba(37,99,235,.25);
+  background: rgba(37,99,235,.10);
+  color:#1e40af;
+}
+.wechat a{ text-decoration:none; }
+.wechat img{
+  width:100%;
+  max-width:210px;
+  display:block;
+  margin:10px auto 6px;
+  border-radius:14px;
+  border:1px solid rgba(37,99,235,.18);
+  background:#fff;
+  box-shadow:0 12px 26px rgba(17,24,39,.10);
+}
+.wechat .wechat-name{
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  color:#0f172a;
+  margin-top:2px;
+}
+.wechat .wechat-hint{
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:1px;
+}
+
+/* Main */
+.main{ padding:18px 18px 20px; }
+
+/* Navbar */
+.navbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  margin-bottom:14px;
+}
+.navbar .navlink{
+  display:inline-flex;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--text);
+  font-weight:750;
+  font-size:13px;
+}
+.navbar .navlink:hover{
+  text-decoration:none;
+  filter:brightness(.98);
+  border-color: rgba(37,99,235,.35);
+  box-shadow:0 0 0 4px var(--primary-weak);
+}
+
+.navbar .navlink.active{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 0 0 4px var(--primary-weak);
+}
+
+.ext-content{ font-size:13px; color:#374151; }
+.ext-content img{ max-width:100%; height:auto; }
+.ext-content table{ border-collapse:collapse; max-width:100%; }
+.ext-content th,.ext-content td{ border:1px solid var(--line); padding:6px 8px; }
+.ext-content code{ font-family:var(--mono); font-size:12px; background:#f3f4f6; padding:2px 4px; border-radius:6px; }
+
+/* Callouts */
+.callout{
+  margin:12px 0;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-left:6px solid var(--primary);
+  border-radius:14px;
+  background: linear-gradient(90deg, rgba(37,99,235,.12), rgba(16,185,129,.08));
+}
+.callout .callout-title{
+  margin:0 0 6px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:900;
+  font-size:13px;
+  color:#0f172a;
+}
+.callout .callout-body p{ margin:6px 0; }
+.callout .callout-body ul{ margin-top:6px; }
+.callout.recruit{
+  border-left-color:#f59e0b;
+  background: linear-gradient(90deg, rgba(245,158,11,.18), rgba(37,99,235,.08));
+}
+.callout.success{
+  border-left-color:#10b981;
+  background: linear-gradient(90deg, rgba(16,185,129,.16), rgba(37,99,235,.06));
+}
+.callout.warn{
+  border-left-color:#ef4444;
+  background: linear-gradient(90deg, rgba(239,68,68,.14), rgba(245,158,11,.06));
+}
+mark.hl{
+  padding:1px 4px;
+  border-radius:6px;
+  background: rgba(245,158,11,.28);
+}
+
+
+
+
+
+
+
+
+.topbar{
+  display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+  padding-bottom:10px; border-bottom:1px solid var(--line); margin-bottom:14px;
+}
+.topbar h1{ margin:0; font-size:22px; line-height:1.25; }
+.topbar .meta{
+  text-align:right; color:var(--muted); font-size:12px;
+  font-family:var(--mono); white-space:nowrap;
+}
+
+section{ padding:14px 0; border-bottom:1px dashed var(--line); }
+section:last-child{ border-bottom:none; }
+.sec-title{
+  display:flex; align-items:center; gap:10px;
+  margin:0 0 10px; font-size:15px; font-weight:800;
+}
+.dot{
+  width:10px; height:10px; border-radius:999px;
+  background:var(--primary);
+  box-shadow:0 0 0 6px var(--primary-weak);
+  flex:0 0 auto;
+}
+.lead{ margin:0; font-size:14px; color:#111827; }
+.muted{ color:var(--muted); }
+
+ul{ margin:8px 0 0 18px; padding:0; color:#374151; font-size:13px; }
+li{ margin:6px 0; }
+p{ margin:8px 0; color:#374151; font-size:13px; }
+
+/* Publications */
+.pub{
+  display:flex; gap:12px;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  margin-top:10px;
+}
+.pub .idx{
+  font-family:var(--mono);
+  color:var(--muted);
+  width:28px;
+  flex:0 0 auto;
+  text-align:right;
+  padding-top:2px;
+}
+.pub .content{ flex:1; min-width:0; }
+.pub .ptitle{ margin:0; font-weight:800; color:#111827; font-size:13px; }
+.pub .meta-line{
+  margin:4px 0 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-size:12px;
+  color:#374151;
+}
+.pub .authors-text{ min-width:0; }
+.pub .venue-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:2px 10px;
+  border-radius:999px;
+  border:1px solid rgba(37,99,235,.25);
+  background: linear-gradient(90deg, rgba(37,99,235,.14), rgba(16,185,129,.10));
+  color:#0f172a;
+  font-weight:800;
+}
+.pub .authors{ margin:4px 0 0; font-size:12px; color:#374151; }
+.pub .venue{ margin:4px 0 0; font-size:12px; color:var(--muted); }
+.links{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+.pill{
+  font-size:12px;
+  padding:5px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+}
+
+.footer{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; }
+
+
+/* Layout lock (keeps layout consistent across pages at the same zoom) */
+html.cv-layout-1 .wrap{ grid-template-columns:1fr; }
+html.cv-layout-1 .sidebar{ position:relative; top:auto; }
+html.cv-layout-1 .topbar .meta{ text-align:left; white-space:normal; }
+html.cv-layout-2 .wrap{ grid-template-columns: 320px 1fr; }
+html.cv-layout-2 .sidebar{ position:sticky; position:-webkit-sticky; top:18px; }
+@media (max-width: 940px){
+  .wrap{ grid-template-columns:1fr; }
+  .sidebar{ position:relative; top:auto; max-height:none; overflow:visible; }
+  .topbar .meta{ text-align:left; white-space:normal; }
+}
+  </style>
+<script>
+(function(){
+  /* FIX: Robust Zoom Persistence to prevent jumping */
+  var KEY_ZOOM = "cv_zoom_desired";
+  var KEY_LAYOUT = "cv_layout_mode";
+  var LAYOUT_BREAKPOINT = 940;
+
+  function ssGet(key){ try{ return sessionStorage.getItem(key); }catch(e){} return null; }
+  function ssSet(key, val){ try{ sessionStorage.setItem(key, String(val)); }catch(e){} }
+
+  // 1. Priority: Read session storage first. If null, use current device ratio.
+  var stored = ssGet(KEY_ZOOM);
+  var desired = stored ? parseFloat(stored) : (window.devicePixelRatio || 1);
+  if (!desired || !isFinite(desired)) desired = 1;
+
+  function applyZoom(){
+    // Disable on mobile to avoid fighting native behavior
+    if (document.documentElement.classList.contains("cv-mobile")) return;
+
+    var cur = window.devicePixelRatio || 1;
+    if(!cur) cur = 1;
+    
+    var factor = desired / cur;
+    factor = Math.round(factor * 1000000) / 1000000;
+    
+    if(isFinite(factor) && factor > 0.1 && factor < 10){
+      var de = document.documentElement;
+      if('zoom' in de.style){
+        de.style.zoom = factor;
+      }else{
+        // Firefox fallback
+        de.style.transformOrigin = '0 0';
+        de.style.transform = 'scale(' + factor + ')';
+        de.style.width = (100 / factor) + '%';
+        // Note: we do NOT set height here to avoid cutting off bottom
+      }
+    }
+  }
+
+  // Apply immediately
+  applyZoom();
+
+  // 2. Listener: Only update storage if user explicitly changes zoom (ctrl +/-)
+  var lastDpr = window.devicePixelRatio || 1;
+  window.addEventListener('resize', function(){
+    var dpr = window.devicePixelRatio || 1;
+    // Threshold to ignore rounding errors
+    if(Math.abs(dpr - lastDpr) > 0.001){
+      desired = dpr; 
+      lastDpr = dpr;
+      ssSet(KEY_ZOOM, desired);
+      applyZoom();
+    }
+    // Also re-check layout mode
+    applyLayoutMode(computeLayoutMode());
+  });
+
+  // --- Layout lock ---
+  function computeLayoutMode(){
+    var w = document.documentElement.clientWidth || window.innerWidth || 0;
+    return (w <= LAYOUT_BREAKPOINT) ? '1' : '2';
+  }
+
+  function applyLayoutMode(mode){
+    var html = document.documentElement;
+    html.classList.remove('cv-layout-1', 'cv-layout-2');
+    if (mode === '1') html.classList.add('cv-layout-1');
+    else html.classList.add('cv-layout-2');
+    ssSet(KEY_LAYOUT, mode);
+  }
+
+  var storedLayout = ssGet(KEY_LAYOUT);
+  var layoutMode = storedLayout || computeLayoutMode();
+  applyLayoutMode(layoutMode);
+
+  window.addEventListener('pagehide', function(){ ssSet(KEY_ZOOM, desired); });
+})();
+</script>
+</head>
+
+<body>
+  <div class="wrap">
+    <aside class="card sidebar">
+      <div class="profile">
+        <div class="avatar"><img src="https://mymarkdown-pic.oss-cn-chengdu.aliyuncs.com/img220/202601202141874.png" alt="avatar" /></div>
+        <div>
+          <h2 class="name">向路平 / Luping Xiang</h2>
+          <p class="title">南京大学苏州校区智慧网络与通信研究院、智能软件与工程学院助理教授、特聘研究员、博士生导师、小米青年学者</p>
+          <div class="tags"><span class="tag">通信物理层</span><span class="tag">AI for communications</span><span class="tag">ISAC</span><span class="tag">感知赋能通信</span></div>
+          
+        </div>
+      </div>
+
+      <div class="contact">
+<div class="item"><div class="k">E-mail</div><div class="v"><a href="mailto:luping.xiang@nju.edu.cn" title="mailto:luping.xiang@nju.edu.cn" target="_blank" rel="noopener noreferrer">luping.xiang@nju.edu.cn</a></div></div>
+<div class="item"><div class="k">Google Scholar</div><div class="v"><a href="https://scholar.google.com/citations?hl=en&amp;user=zE5j2o8AAAAJ" title="https://scholar.google.com/citations?hl=en&amp;user=zE5j2o8AAAAJ" target="_blank" rel="noopener noreferrer">scholar.google.com/citations?user=zE5j2o8AAAAJ</a></div></div>
+      </div>
+
+<div class="wechat"><div class="wechat-title"><span class="wechat-badge">WeChat</span><span>公众号</span></div><a href="https://mymarkdown-pic.oss-cn-chengdu.aliyuncs.com/img220/202601202221014.png" target="_blank" rel="noopener noreferrer"><img src="https://mymarkdown-pic.oss-cn-chengdu.aliyuncs.com/img220/202601202221014.png" alt="PHY Insight" loading="lazy" /></a><div class="wechat-name">PHY Insight</div><div class="wechat-hint">微信扫一扫，关注公众号</div></div>
+
+      <div class="actions">
+
+      </div>
+
+
+    </aside>
+
+    <main class="card main">
+<nav class="navbar"><a class="navlink" href="index.html" target="_self">Home</a><a class="navlink active" href="papers.html" target="_self">Papers</a><a class="navlink" href="honors.html" target="_self">Honors</a><a class="navlink" href="Teaching.html" target="_self">Teaching</a><a class="navlink" href="Service.html" target="_self">Service</a><a class="navlink" href="Demo.html" target="_self">Demo</a></nav>
+      <div class="topbar">
+        <div>
+          <h1></h1>
+          <div class="muted"></div>
+        </div>
+        <div class="meta">
+          <div>Last updated: 2026-04-09</div>
+        </div>
+      </div>
+
+<section>
+<h3 class="sec-title"><span class="dot"></span>Selected Publications\部分成果</h3>
+<div class="pub">
+  <div class="idx">[1]</div>
+  <div class="content">
+    <p class="ptitle">Large AI Model for Multimodal Integrated Sensing and Communication</p>
+    <div class="meta-line"><span class="authors-text">Y Peng, <strong>L Xiang</strong>, K Yang, J Chen</span><span class="venue-badge">IEEE Network · 2026</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11403952" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/NJU-NINELab/LAMMSAC.git" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[2]</div>
+  <div class="content">
+    <p class="ptitle">Extended Target Adaptive Beamforming for ISAC: A Perspective of Predictive Error Ellipse</p>
+    <div class="meta-line"><span class="authors-text">S Zhou, <strong>L Xiang</strong>*, Y Wang, K Yang, KK Wong, CB Chae</span><span class="venue-badge">IEEE Transactions on Wireless Communications · 2026</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11357472" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/ericzhou12138/Extended-Target-Adaptive-Beamforming-for-ISAC-A-Perspective-of-Predictive-Error-Ellipse" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[3]</div>
+  <div class="content">
+    <p class="ptitle">Reconfigurable Intelligent Sensing Surface Enables Wireless Powered Communication Networks: Interference Suppression and Massive Wireless Energy Transfer</p>
+    <div class="meta-line"><span class="authors-text">C. Luo, J. Hu, <strong>L. Xiang</strong> and K. Yang</span><span class="venue-badge">IEEE Transactions on Communications · 2026</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11206402" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[4]</div>
+  <div class="content">
+    <p class="ptitle">Algorithm Design and Prototype Validation for Reconfigurable Intelligent Sensing Surface: Forward-Only Transmission</p>
+    <div class="meta-line"><span class="authors-text">C. Luo, <strong>L. Xiang</strong>, J. Hu and K. Yang</span><span class="venue-badge">IEEE Transactions on Wireless Communications · 2026</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11139123" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[5]</div>
+  <div class="content">
+    <p class="ptitle">Low-Complexity Null-Space-Based Simultaneous Wireless Information and Power Transfer Scheme</p>
+    <div class="meta-line"><span class="authors-text">C. Luo, J. Hu, <strong>L. Xiang</strong>, K. Yang and Z. Wang</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11316803" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[6]</div>
+  <div class="content">
+    <p class="ptitle">Semantic communications with computer vision sensing for edge video transmission</p>
+    <div class="meta-line"><span class="authors-text">Y Peng, <strong>L Xiang</strong>*, K Yang, K Wang, M Debbah</span><span class="venue-badge">arXiv preprint arXiv:2503.07252 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2503.07252" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/NJU-NINELab/SCCVS.git" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[7]</div>
+  <div class="content">
+    <p class="ptitle">Deep Neural Polar Codes for Integrated Data and Energy Communication Networks Enabled by Sensing-Aided UAVs</p>
+    <div class="meta-line"><span class="authors-text">Y Wang, <strong>L Xiang</strong>*, J Liu, J Cui, K Yang, K Zheng, D Zhao</span><span class="venue-badge">Journal of Communications and Information Networks · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11357507" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/JackieWang11/Deep-Neural-Polar-Codes-for-IDEN-Enabled-by-Sensing-Aided-UAVs" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[8]</div>
+  <div class="content">
+    <p class="ptitle">SemAgent: Semantic-Driven Agentic AI Empowered Trajectory Prediction in Vehicular Networks</p>
+    <div class="meta-line"><span class="authors-text">L Zhu, K Wang, <strong>L Xiang</strong>*, K Yang</span><span class="venue-badge">arXiv preprint arXiv:2512.00834 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2512.00834" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[9]</div>
+  <div class="content">
+    <p class="ptitle">UAV-Assisted Integrated Active and Passive Sensing with Communication: A Hybrid-SAC Approach</p>
+    <div class="meta-line"><span class="authors-text">K Yan, <strong>L Xiang</strong>*, K Zheng, J Hu, K Yang, J Liu</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11208810" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/KangYYYYYY/UAV-Assisted-Integrated-Active-and-Passive-Sensing-with-Communication-A-Hybrid-SAC-Approach-Code" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[10]</div>
+  <div class="content">
+    <p class="ptitle">Service-Driven Physical Layer Function Orchestration Algorithm Based on Meta-Reinforcement Learning</p>
+    <div class="meta-line"><span class="authors-text">J Liao, <strong>L Xiang</strong>*, C Tong, K Zheng</span><span class="venue-badge">IEEE 102nd Vehicular Technology Conference (VTC-Fall), 1-6 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11310285" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[11]</div>
+  <div class="content">
+    <p class="ptitle">Low-Complexity Beamforming Design for Null Space-based Simultaneous Wireless Information and Power Transfer Systems</p>
+    <div class="meta-line"><span class="authors-text">C Luo, J Hu, <strong>L Xiang</strong>, K Yang</span><span class="venue-badge">arXiv preprint arXiv:2503.08202 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2503.08202" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[12]</div>
+  <div class="content">
+    <p class="ptitle">Digital Twin-Assisted Causal Multi-Agent Reinforcement Learning for Large-Scale Network Service Migration</p>
+    <div class="meta-line"><span class="authors-text">C Che, <strong>L Xiang</strong>, J Hu, K Yang</span><span class="venue-badge">IEEE 25th International Conference on Communication Technology (ICCT) · 2025</span></div>
+
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[13]</div>
+  <div class="content">
+    <p class="ptitle">Polar Coded Digital Twin Network: An End-to-End Design With GAN Prediction</p>
+    <div class="meta-line"><span class="authors-text">C Che, K Zheng, J Cui, <strong>L Xiang</strong>*, J Hu, K Yang, D Zhao, C Tong</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11205304" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[14]</div>
+  <div class="content">
+    <p class="ptitle">Cooperative Base Station Assignment and Resource Allocation for 6G ISAC Network</p>
+    <div class="meta-line"><span class="authors-text">J Liao, <strong>L Xiang</strong>*, S Zhong, L Xiao, H Liu, K Yang</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11190088" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/Alicejiajia/CBARA" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[15]</div>
+  <div class="content">
+    <p class="ptitle">SIMAC: A semantic-driven integrated multimodal sensing and communication framework</p>
+    <div class="meta-line"><span class="authors-text">Y Peng, <strong>L Xiang</strong>*, K Yang, F Jiang, K Wang, DO Wu</span><span class="venue-badge">IEEE Journal on Selected Areas in Communications · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11165352" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/NJU-NINELab/SIMAC.git" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[16]</div>
+  <div class="content">
+    <p class="ptitle">Beamforming-based achievable rate maximization in ISAC system for multi-UAV networking</p>
+    <div class="meta-line"><span class="authors-text">S Zhou, <strong>L Xiang</strong>*, K Yang, KK Wong, DO Wu, CB Chae</span><span class="venue-badge">arXiv preprint arXiv:2507.21895 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2507.21895" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/ericzhou12138/Beamforming-based-Achievable-Rate-Maximization-in-ISAC-Systems-for-Multi-UAV-Networking" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[17]</div>
+  <div class="content">
+    <p class="ptitle">Autonomous Link Control in Digital Twin Aided Mobile Network: From Virtual Channel Generation to Intelligent Power Allocation</p>
+    <div class="meta-line"><span class="authors-text">C Che, G Liang, K Zheng, <strong>L Xiang</strong>*, J Hu, K Yang, QH Abbasi, J Cooper, MA Imran</span><span class="venue-badge">IEEE Internet of Things Journal · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11079928" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[18]</div>
+  <div class="content">
+    <p class="ptitle">Image super-resolution-based signal enhancement in bistatic ISAC</p>
+    <div class="meta-line"><span class="authors-text">Y Wang, K Zu, <strong>L Xiang</strong>, M Haardt, C Wang, X Zhang, K Yang</span><span class="venue-badge">arXiv preprint arXiv:2507.09218 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2507.09218" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[19]</div>
+  <div class="content">
+    <p class="ptitle">Time-Varying Offset Estimation for Clock-Asynchronous Bistatic ISAC Systems</p>
+    <div class="meta-line"><span class="authors-text">Y Wang, K Zu, <strong>L Xiang</strong>, M Haardt, K Yang</span><span class="venue-badge">arXiv preprint arXiv:2507.09215 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2507.09215" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[20]</div>
+  <div class="content">
+    <p class="ptitle">Bedrock Models in Communication and Sensing: Advancing Generalization, Transferability, and Performance</p>
+    <div class="meta-line"><span class="authors-text">C Luo, <strong>L Xiang</strong>*, J Hu, K Yang</span><span class="venue-badge">arXiv preprint arXiv:2503.08220 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2503.08220" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[21]</div>
+  <div class="content">
+    <p class="ptitle">Large Language Model-Driven Distributed Integrated Multimodal Sensing and Semantic Communications</p>
+    <div class="meta-line"><span class="authors-text">Y Peng, <strong>L Xiang</strong>*, B Zhang, K Yang</span><span class="venue-badge">arXiv preprint arXiv:2505.18194 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2505.18194" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[22]</div>
+  <div class="content">
+    <p class="ptitle">Integrated Multimodal Sensing and Communication: Challenges, Technologies, and Architectures</p>
+    <div class="meta-line"><span class="authors-text">Y Peng, <strong>L Xiang</strong>*, K Yang, F Jiang, K Wang, C Masouros</span><span class="venue-badge">arXiv preprint arXiv:2506.22507 · 2025</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2506.22507" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[23]</div>
+  <div class="content">
+    <p class="ptitle">Predictive ISAC Beamforming Using LoRA-Transformer LSTM Integrated with GNN in Ultra-Dense D2D mmWave Networks</p>
+    <div class="meta-line"><span class="authors-text">H Liu, J Bi, B Li, <strong>L Xiang</strong>*, X Yang, Z Zhang, L Wang</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10959722" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[24]</div>
+  <div class="content">
+    <p class="ptitle">Prototype: A Keyword Spotting-Based Intelligent Audio SoC for IoT</p>
+    <div class="meta-line"><span class="authors-text">H Liang, D Jia, Y Wang, L Huang, S Zhong, <strong>L Xiang</strong>, L Huang, T Yuan</span><span class="venue-badge">IEEE INFOCOM  - IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS) · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/11152910" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[25]</div>
+  <div class="content">
+    <p class="ptitle">Deep Decision Algorithm for DNA Image Storage: Enhancing Accuracy with Edit Distance-Based Quality Assessment</p>
+    <div class="meta-line"><span class="authors-text">W Wu, <strong>L Xiang</strong>*, Q Liu, K Yang</span><span class="venue-badge">International Conference on Wireless Artificial Intelligent Computing Systems and Applications · 2025</span></div>
+    <div class="links"><a class="pill" href="https://link.springer.com/chapter/10.1007/978-981-96-8731-2_20" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[26]</div>
+  <div class="content">
+    <p class="ptitle">Optimizing Placement and Power Allocation in Reconfigurable Intelligent Sensing Surfaces for Enhanced Sensing and Communication Performance</p>
+    <div class="meta-line"><span class="authors-text">C. Luo, J. Hu, <strong>L. Xiang</strong>, K. Yang and B. Lei</span><span class="venue-badge">IEEE Communications Letters · 2025</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10736676" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[27]</div>
+  <div class="content">
+    <p class="ptitle">Robust NOMA-assisted OTFS-ISAC network design with 3-D motion prediction topology</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, K Xu, J Hu, C Masouros, K Yang</span><span class="venue-badge">IEEE Internet of Things Journal 11 (9), 15909-15918 · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10404096" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[28]</div>
+  <div class="content">
+    <p class="ptitle">Noncoherent orthogonal time frequency space modulation</p>
+    <div class="meta-line"><span class="authors-text">C Xu, <strong>L Xiang</strong>, S Sugiura, RG Maunder, LL Yang, D Niyato, GY Li, R Schober, L Hanzo</span><span class="venue-badge">IEEE Transactions on Wireless Communications · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10453468" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[29]</div>
+  <div class="content">
+    <p class="ptitle">Cooperative target search algorithm for UAV swarms with limited communication and energy capacity</p>
+    <div class="meta-line"><span class="authors-text">K Yan, <strong>L Xiang</strong>*, K Yang</span><span class="venue-badge">IEEE Communications Letters 28 (5), 1102-1106 · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10463057" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[30]</div>
+  <div class="content">
+    <p class="ptitle">基于正交时频空间调制的通信感知一体化系统的公平性功率分配方案</p>
+    <div class="meta-line"><span class="authors-text">胥柯， 向路平*， 胡杰， 杨鲲</span><span class="venue-badge">电信科学 38 (9), 50-59 · 2024</span></div>
+    <div class="links"><a class="pill" href="https://www.telecomsci.com/zh/article/doi/10.11959/j.issn.1000-0801.2022256" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[31]</div>
+  <div class="content">
+    <p class="ptitle">End-to-End Design of Polar Coded Integrated Data and Energy Networking</p>
+    <div class="meta-line"><span class="authors-text">J Hu, J Cui, <strong>L Xiang</strong>*, K Yang</span><span class="venue-badge">IEEE Transactions on Communications 72 (11), 7017-7031 · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10555526" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[32]</div>
+  <div class="content">
+    <p class="ptitle">A polarisation coding scheme based on an integrated sensing and communication system</p>
+    <div class="meta-line"><span class="authors-text">Y Zeng, <strong>L Xiang</strong>*, K Yang</span><span class="venue-badge">Journal of Information and Intelligence 2 (4), 289-301 · 2024</span></div>
+    <div class="links"><a class="pill" href="https://www.sciencedirect.com/science/article/pii/S2949715924000131" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[33]</div>
+  <div class="content">
+    <p class="ptitle">SEMAI: semantic artificial intelligence-enhanced DNA storage for Internet-of-Things</p>
+    <div class="meta-line"><span class="authors-text">W Wu, <strong>L Xiang</strong>*, Q Liu, K Yang</span><span class="venue-badge">IEEE Internet of Things Journal · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10738388" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[34]</div>
+  <div class="content">
+    <p class="ptitle">ISAC enabled cooperative detection for cellular-connected UAV network</p>
+    <div class="meta-line"><span class="authors-text">Y Wang, K Zu, <strong>L Xiang</strong>, Q Zhang, Z Feng, J Hu, K Yang</span><span class="venue-badge">IEEE Transactions on Wireless Communications · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10791445" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[35]</div>
+  <div class="content">
+    <p class="ptitle">Temporal-assisted beamforming and trajectory prediction in sensing-enabled UAV communications</p>
+    <div class="meta-line"><span class="authors-text">S Zhou, H Yang, <strong>L Xiang</strong>*, K Yang</span><span class="venue-badge">IEEE Transactions on Communications · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10806828" target="_blank" rel="noopener">PDF</a><a class="pill" href="https://github.com/JYAyyyyyy/trajectory_prediction" target="_blank" rel="noopener">Code</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[36]</div>
+  <div class="content">
+    <p class="ptitle">Semisupervised RF Fingerprinting With Consistency-Based Regularization</p>
+    <div class="meta-line"><span class="authors-text">W. Wang, C. Luo, J. An, L. Gan, H. Liao and C. Yuen</span><span class="venue-badge">IEEE Internet of Things Journal · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10268017" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[37]</div>
+  <div class="content">
+    <p class="ptitle">Massive Wireless Energy Transfer Without Channel State Information via Imperfect Intelligent Reflecting Surfaces</p>
+    <div class="meta-line"><span class="authors-text">C. Luo, J. Hu, <strong>L. Xiang</strong>, K. Yang and K.-K. Wong</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10422762" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[38]</div>
+  <div class="content">
+    <p class="ptitle">Reconfigurable Intelligent Sensing Surface Aided Wireless Powered Communication Networks: A Sensing-Then-Reflecting Approach</p>
+    <div class="meta-line"><span class="authors-text">C. Luo, J. Hu, <strong>L. Xiang</strong>* and K. Yang</span><span class="venue-badge">IEEE Transactions on Communications · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10330059" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[39]</div>
+  <div class="content">
+    <p class="ptitle">A tutorial on coding methods for DNA-based molecular communications and storage</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Q Liu, S Chen, K Yan, W Wu, K Yang</span><span class="venue-badge">IEEE Internet of Things Journal 11 (7), 11825-11847 · 2024</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10319319" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[40]</div>
+  <div class="content">
+    <p class="ptitle">Gaussian AMP aided model-driven learning for OTFS system</p>
+    <div class="meta-line"><span class="authors-text">X Zhang, L Xiao, S Li, Q Yuan, <strong>L Xiang</strong>, T Jiang</span><span class="venue-badge">IEEE Communications Letters 26 (12), 2949-2953 · 2023</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9893070" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[41]</div>
+  <div class="content">
+    <p class="ptitle">Multi-domain resource scheduling for simultaneous wireless computing and power transfer in fog radio access network</p>
+    <div class="meta-line"><span class="authors-text">J Hu, T Shui, <strong>L Xiang</strong>*, K Yang</span><span class="venue-badge">IEEE Transactions on Communications 71 (1), 269-281 · 2023</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9965206" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[42]</div>
+  <div class="content">
+    <p class="ptitle">Orthogonal-time-frequency-space signal design for integrated data and energy transfer: Benefits from Doppler offsets</p>
+    <div class="meta-line"><span class="authors-text">J Hu, K Xu, <strong>L Xiang</strong>*, K Yang</span><span class="venue-badge">IEEE Wireless Communications Letters 12 (4), 689-693 · 2023</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10025672" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[43]</div>
+  <div class="content">
+    <p class="ptitle">Polar coded integrated data and energy networking: A deep neural network assisted end-to-end design</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, J Cui, J Hu, K Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 72 (8), 11047-11052 · 2023</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10151675" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[44]</div>
+  <div class="content">
+    <p class="ptitle">Multi-domain polarization for enhancing the physical layer security of MIMO systems</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Y Zeng, J Hu, K Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Communications 72 (3), 1502-1515 · 2023</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10311400" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[45]</div>
+  <div class="content">
+    <p class="ptitle">Green beamforming design for integrated sensing and communication systems: A practical approach using beam-matching error metrics</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, K Xu, J Hu, K Yang</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 73 (4), 5935-5940 · 2023</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10313997" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[46]</div>
+  <div class="content">
+    <p class="ptitle">Deep joint source-channel coding for DNA image storage: a novel approach with enhanced error resilience and biological constraint optimization</p>
+    <div class="meta-line"><span class="authors-text">W Wu, <strong>L Xiang</strong>*, Q Liu, K Yang</span><span class="venue-badge">IEEE Transactions on Molecular, Biological, and Multi-Scale Communications · 2023</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/10314138" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[47]</div>
+  <div class="content">
+    <p class="ptitle">Reconfigurable intelligent surface assisted multi-carrier wireless systems for doubly selective high-mobility Ricean channels</p>
+    <div class="meta-line"><span class="authors-text">C Xu, J An, T Bai, <strong>L Xiang</strong>, S Sugiura, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 71 (4), 4023-4041 · 2022</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9699402" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[48]</div>
+  <div class="content">
+    <p class="ptitle">Unity-rate coding improves the iterative detection convergence of autoencoder-aided communication systems</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, C Xu, X Zhang, T Van Luong, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 71 (5), 5037-5047 · 2022</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9713687" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[49]</div>
+  <div class="content">
+    <p class="ptitle">A soft-input soft-output polar decoding algorithm for turbo-detection in MIMO-aided 5G new radio</p>
+    <div class="meta-line"><span class="authors-text">ZBK Egilmez, <strong>L Xiang</strong>, RG Maunder, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 71 (6), 6454-6468 · 2022</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9744544" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[50]</div>
+  <div class="content">
+    <p class="ptitle">Turbo detection aided autoencoder for multicarrier wireless systems: Integrating deep learning into channel coded systems</p>
+    <div class="meta-line"><span class="authors-text">C Xu, T Van Luong, <strong>L Xiang</strong>, S Sugiura, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Cognitive Communications and Networking 8 (2), 600-614 · 2022</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9759489" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[51]</div>
+  <div class="content">
+    <p class="ptitle">Physical layer security design for polar code construction</p>
+    <div class="meta-line"><span class="authors-text">Y Zeng, Y Tang, <strong>L Xiang</strong>*</span><span class="venue-badge">Cryptography 6 (3), 35 · 2022</span></div>
+    <div class="links"><a class="pill" href="https://www.mdpi.com/2410-387x/6/3/35" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[52]</div>
+  <div class="content">
+    <p class="ptitle">OTFS-aided RIS-assisted SAGIN systems outperform their OFDM counterparts in doubly selective high-Doppler scenarios</p>
+    <div class="meta-line"><span class="authors-text">C Xu, <strong>L Xiang</strong>, J An, C Dong, S Sugiura, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Internet of Things Journal 10 (1), 682-703 · 2022</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9874856" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[53]</div>
+  <div class="content">
+    <p class="ptitle">Power allocation satisfying user fairness for integrated sensing and communication system based on orthogonal time frequency space modulation.</p>
+    <div class="meta-line"><span class="authors-text">XU Ke, X Luping, HU Jie, Y Kun</span><span class="venue-badge">Telecommunications Science 38 (9) · 2022</span></div>
+    <div class="links"><a class="pill" href="https://doaj.org/article/5a67cf06a9b544ecb1c7f70b01a8e26d" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[54]</div>
+  <div class="content">
+    <p class="ptitle">Iterative receiver design for polar-coded SCMA systems</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Y Liu, C Xu, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Communications 69 (7), 4235-4246 · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9386114" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[55]</div>
+  <div class="content">
+    <p class="ptitle">Space-time coded generalized spatial modulation for sparse code division multiple access</p>
+    <div class="meta-line"><span class="authors-text">Y Liu, <strong>L Xiang</strong>*, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Wireless Communications 20 (8), 5359-5372 · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9387569" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[56]</div>
+  <div class="content">
+    <p class="ptitle">Hybrid Iterative Detection and Decoding of Near-Instantaneously Adaptive Turbo-Coded Sparse Code Multiple Access</p>
+    <div class="meta-line"><span class="authors-text">Y Liu, <strong>L Xiang</strong>*, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 70 (5), 4682-4692 · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9399239" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[57]</div>
+  <div class="content">
+    <p class="ptitle">Soft-output successive cancellation stack polar decoder</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Y Liu, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 70 (6), 6238-6243 · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9424467" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[58]</div>
+  <div class="content">
+    <p class="ptitle">Gaussian approximate message passing detection of orthogonal time frequency space modulation</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Y Liu, LL Yang, L Hanzo</span><span class="venue-badge">IEEE transactions on vehicular technology 70 (10), 10999-11004 · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9508141" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[59]</div>
+  <div class="content">
+    <p class="ptitle">Semi-stochastic aircraft mobility modelling for aeronautical networks: An Australian case-study based on real flight data</p>
+    <div class="meta-line"><span class="authors-text">J Zhang, <strong>L Xiang</strong>, D Liu, J Cui, SX Ng, RG Maunder, T Graeupl, U Carsten-Fiebig, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9511787" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[60]</div>
+  <div class="content">
+    <p class="ptitle">Semi-Stochastic Aircraft Mobility Model for Aeronautical Networks</p>
+    <div class="meta-line"><span class="authors-text">Z Jiankang, <strong>L Xiang</strong>, D Liu, J Cui, SX Ng, R Maunder, T Gräupl, UC Fiebig, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2021</span></div>
+    <div class="links"><a class="pill" href="https://elib.dlr.de/143655/" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[61]</div>
+  <div class="content">
+    <p class="ptitle">Low complexity detection for spatial modulation aided sparse code division multiple access</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Y Liu, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 70 (12), 12858-12871 · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9580640" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[62]</div>
+  <div class="content">
+    <p class="ptitle">Deep learning-aided optical IM/DD OFDM approaches the throughput of RF-OFDM</p>
+    <div class="meta-line"><span class="authors-text">T Van Luong, X Zhang, <strong>L Xiang</strong>, TM Hoang, C Xu, P Petropoulos, L Hanzo</span><span class="venue-badge">IEEE Journal on Selected Areas in Communications · 2021</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9605573" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[63]</div>
+  <div class="content">
+    <p class="ptitle">Parallel turbo decoding with non-uniform window sizes</p>
+    <div class="meta-line"><span class="authors-text">R Maunder, M Brejza, <strong>L Xiang</strong></span><span class="venue-badge">US Patent 11,184,109 · 2021</span></div>
+    <div class="links"><a class="pill" href="https://patents.google.com/patent/US11184109B2/en" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[64]</div>
+  <div class="content">
+    <p class="ptitle">Soft List Decoding of Polar Codes</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Y Liu, Z Kaykac, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2020</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9185047" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[65]</div>
+  <div class="content">
+    <p class="ptitle">Reduced-Complexity Low-Latency Logarithmic Successive Cancellation Stack Polar Decoding for 5G New Radio and Its Software Implementation</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, S Zhong, RG Maunder, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology · 2020</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9206113" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[66]</div>
+  <div class="content">
+    <p class="ptitle">Deep-learning-aided joint channel estimation and data detection for spatial modulation</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, Y Liu, T Van Luong, RG Maunder, LL Yang, L Hanzo</span><span class="venue-badge">IEEE Access 8, 10-19 2020 · 1919</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9233320" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[67]</div>
+  <div class="content">
+    <p class="ptitle">Deep learning assisted detection for index modulation aided mmWave systems</p>
+    <div class="meta-line"><span class="authors-text">S Katla, <strong>L Xiang</strong>, Y Zhang, M El-Hajjar, AAM Mourad, L Hanzo</span><span class="venue-badge">IEEE Access 8, 38-54 2020 · 2027</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/9247947" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[68]</div>
+  <div class="content">
+    <p class="ptitle">Channel coding algorithms for Ultra-Reliable Low Latency Communication</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong></span><span class="venue-badge">University of Southampton · 2019</span></div>
+    <div class="links"><a class="pill" href="https://eprints.soton.ac.uk/438625/" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[69]</div>
+  <div class="content">
+    <p class="ptitle">Arbitrarily parallel turbo decoding for ultra-reliable low latency communication in 3GPP LTE</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, MF Brejza, RG Maunder, BM Al-Hashimi, L Hanzo</span><span class="venue-badge">IEEE Journal on Selected Areas in Communications 37 (4), 826-838 · 2019</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/8639065" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[70]</div>
+  <div class="content">
+    <p class="ptitle">CRC-aided logarithmic stack decoding of polar codes for ultra reliable low latency communication in 3GPP new radio</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, ZBK Egilmez, RG Maunder, L Hanzo</span><span class="venue-badge">IEEE access 7, 28559-28573 · 2019</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/8651506" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[71]</div>
+  <div class="content">
+    <p class="ptitle">Polar codes and their quantum-domain counterparts</p>
+    <div class="meta-line"><span class="authors-text">Z Babar, ZBK Egilmez, <strong>L Xiang</strong>, D Chandra, RG Maunder, SX Ng, L Hanzo</span><span class="venue-badge">IEEE communications surveys &amp; tutorials · 2019</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/8815775" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[72]</div>
+  <div class="content">
+    <p class="ptitle">The development, operation and performance of the 5G polar codes</p>
+    <div class="meta-line"><span class="authors-text">ZBK Egilmez, <strong>L Xiang</strong>, RG Maunder, L Hanzo</span><span class="venue-badge">IEEE Communications Surveys &amp; Tutorials 22 (1), 96-122 · 2019</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/8936409" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[73]</div>
+  <div class="content">
+    <p class="ptitle">Concurrent OFDM demodulation and turbo decoding for ultra reliable low latency communication</p>
+    <div class="meta-line"><span class="authors-text"><strong>L Xiang</strong>, RG Maunder, L Hanzo</span><span class="venue-badge">IEEE Transactions on Vehicular Technology 69 (2), 1281-1290 · 2019</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/8939423" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[74]</div>
+  <div class="content">
+    <p class="ptitle">VLSI implementation of fully parallel LTE turbo decoders</p>
+    <div class="meta-line"><span class="authors-text">A Li, <strong>L Xiang</strong>, T Chen, RG Maunder, BM Al-Hashimi, L Hanzo</span><span class="venue-badge">IEEE Access 4, 323-346 · 2016</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/7378273" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[75]</div>
+  <div class="content">
+    <p class="ptitle">A low power and high accuracy MEMS sensor based activity recognition algorithm</p>
+    <div class="meta-line"><span class="authors-text">S Weng, <strong>L Xiang</strong>, W Tang, H Yang, L Zheng, H Lu, H Zheng</span><span class="venue-badge">IEEE International Conference on Bioinformatics and Biomedicine (BIBM) · 2014</span></div>
+    <div class="links"><a class="pill" href="https://ieeexplore.ieee.org/document/6999238" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+<div class="pub">
+  <div class="idx">[76]</div>
+  <div class="content">
+    <p class="ptitle">An End-to-End Neural Network Transceiver Design for OFDM System with FPGA-Accelerated Implementation</p>
+    <div class="meta-line"><span class="authors-text">Y Luo, <strong>L Xiang</strong>*, C Luo, K Yang, S Zhong, J Chen</span><span class="venue-badge">arXiv:2512.13263v1</span></div>
+    <div class="links"><a class="pill" href="https://arxiv.org/pdf/2512.13263" target="_blank" rel="noopener">PDF</a></div>
+  </div>
+</div>
+</section>
+
+      <div class="footer">© 2026 向路平 / Luping Xiang</div>
+    </main>
+  </div>
+</body>
+</html>
