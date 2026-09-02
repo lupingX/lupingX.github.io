@@ -471,6 +471,12 @@ p{ margin:8px 0; color:#374151; font-size:13px; }
   border:1px solid var(--line);
   background:#fff;
 }
+.pill.pending{
+  color:var(--muted);
+  background:#f9fafb;
+  border-style:dashed;
+  cursor:default;
+}
 
 .footer{ margin-top:10px; color:var(--muted); font-size:12px; text-align:center; }
 
@@ -1892,8 +1898,10 @@ def render_publications(md: str) -> str:
             links.append('<a class="pill" href="{0}" target="_blank" rel="noopener">PDF</a>'.format(esc(p["pdf"])))
         if p["bib"]:
             links.append('<a class="pill" href="{0}" target="_blank" rel="noopener">BibTeX</a>'.format(esc(p["bib"])))
-        if p.get("code"):
+        if re.match(r"^https?://", (p.get("code") or "").strip(), flags=re.I):
             links.append('<a class="pill" href="{0}" target="_blank" rel="noopener">Code</a>'.format(esc(p["code"])))
+        else:
+            links.append('<span class="pill pending" title="代码链接待补充">Code：待补充</span>')
 
         venue_text = ""
         if p["venue"] and p["year"]:
@@ -2426,7 +2434,7 @@ def main():
             PDF_BTN=pdf_btn,
             SUBTITLE=esc(subtitle),
             NAVBAR=build_navbar(out_filename),
-            UPDATED=now.strftime('%Y-%m-%d'),
+            UPDATED=now.strftime('%Y-%m-%d %H:%M:%S'),
             YEAR=str(now.year),
             SECTIONS='\n'.join(sections_list),
         )
