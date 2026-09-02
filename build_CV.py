@@ -1902,7 +1902,7 @@ def render_publications(md: str) -> str:
         if re.match(r"^https?://", code_value, flags=re.I):
             links.append('<a class="pill" href="{0}" target="_blank" rel="noopener">Code</a>'.format(esc(p["code"])))
         elif code_value:
-            links.append('<span class="pill pending" title="代码链接待补充">Code：待补充</span>')
+            links.append('<span class="pill pending">Code：{0}</span>'.format(esc(code_value)))
 
         venue_text = ""
         if p["venue"] and p["year"]:
