@@ -1898,9 +1898,10 @@ def render_publications(md: str) -> str:
             links.append('<a class="pill" href="{0}" target="_blank" rel="noopener">PDF</a>'.format(esc(p["pdf"])))
         if p["bib"]:
             links.append('<a class="pill" href="{0}" target="_blank" rel="noopener">BibTeX</a>'.format(esc(p["bib"])))
-        if re.match(r"^https?://", (p.get("code") or "").strip(), flags=re.I):
+        code_value = (p.get("code") or "").strip()
+        if re.match(r"^https?://", code_value, flags=re.I):
             links.append('<a class="pill" href="{0}" target="_blank" rel="noopener">Code</a>'.format(esc(p["code"])))
-        else:
+        elif code_value:
             links.append('<span class="pill pending" title="代码链接待补充">Code：待补充</span>')
 
         venue_text = ""
